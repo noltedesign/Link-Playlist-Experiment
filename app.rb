@@ -17,6 +17,11 @@ end
 
 class Url < ActiveRecord::Base
   belongs_to :user
+  has_many :feed_items
+end
+
+class Feed_item < ActiveRecord::Base
+  belongs_to :url
 end
 
 

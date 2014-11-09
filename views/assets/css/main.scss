@@ -7,7 +7,6 @@ body, html {
 }
 
 body {
-  @include scrollbar;
   // -webkit-font-smoothing: antialiased;
   // -moz-osx-font-smoothing: grayscale;  
   font-family: $font1;
@@ -15,7 +14,6 @@ body {
   a:link {text-decoration:none; color:#95bed8;}
   a:visited {color:$gray40;}
   a:active, a:hover {color:#f15a3b;}
-  
 }
 
 #content {
