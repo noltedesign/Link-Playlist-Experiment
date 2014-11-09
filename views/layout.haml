@@ -1,0 +1,31 @@
+!!!
+%html
+  %head
+    %title RSS Test
+    %link{:href=>"/css/styles.css", :media=>"screen", :rel=>"stylesheet", :type=>"text/css"}
+    
+    %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"}
+    %script{:src => "/js/scripts.js"}
+
+  %body{:class => "#{@body_class}"}
+    %header  
+      %a{:title => 'home', :href => '/'} Poptart Playlist
+
+      %ul.menu
+        - if admin?
+          %li 
+            %a{:title => 'Add Feed', :href => current_user.userurl } Your Playlist
+          %li 
+            %a{:title => 'Add Feed', :href => '/add-feed'} + Feed
+          %li
+            %a{:title => 'Preferences', :href => '/preferences'} Preferences
+          %li 
+            %a{:title => 'log out', :href => '/logout'} Logout
+        - else
+          %li
+            %a{:title => 'sign up', :href => '/signup'} Signup
+          %li
+            %a{:title => 'sign up', :href => '/login'} Login
+    
+    #content.row.align-stretch.hold.nowrap.justify-start
+      =yield

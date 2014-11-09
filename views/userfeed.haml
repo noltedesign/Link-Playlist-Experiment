@@ -1,0 +1,10 @@
+- @feeds.each do |feed|  
+  %div.cell.feed
+    %h5
+      =feed.title
+    
+    %ul
+      - feed.entries.each do |entry|
+        %li
+          %a{:title => remove_html_tags( entry.summary ), :href => entry.url, :target => 'blank', :class => 'tooltip'}
+            =entry.title

@@ -1,0 +1,13 @@
+source "http://rubygems.org/"
+
+gem "sinatra"
+
+gem 'activerecord'
+gem 'bcrypt'
+gem 'compass'
+gem 'feedjira'
+gem 'haml'
+gem 'pg'
+gem 'sass'
+gem 'sinatra-activerecord'
+gem 'tilt'

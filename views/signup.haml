@@ -1,0 +1,20 @@
+.cell
+  %h4 Signup
+  
+  %form.signup{:method=>"post", :action=>"/signup"}
+    %input#email{:type=>"text", :required => true, :name => 'users[email]'}
+    %label email
+    
+    %br
+    
+    %input#password{:type=>"text", :required => true, :name => 'users[password]'}
+    %label password
+    
+    %br
+    
+    %input#userurl{:type=>"text", :required => true, :name => 'users[userurl]'}
+    %label Choose User URL
+    
+    %br
+    
+    %button{:type=>"submit"} Create

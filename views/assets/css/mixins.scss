@@ -1,0 +1,28 @@
+$gray40: hsl(0,0,40);
+$gray35: hsl(0,0,35);
+$gray28: hsl(0,0,28);
+$gray25: hsl(0,0,25);
+$gray20: hsl(0,0,20);
+$gray17: hsl(0,0,17);
+$gray15: hsl(0,0,15);
+$gray13: hsl(0,0,13);
+$gray10: hsl(0,0,10);
+$gray05: hsl(0,0,05);
+
+$headerheight: 35px;
+
+$font1: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+
+@mixin scrollbar {
+  &::-webkit-scrollbar {background: $gray17;width:6px;}
+  &::-webkit-scrollbar-thumb {background: $gray20; max-height:100px;}
+  &::-webkit-scrollbar-corner {background: $gray17;}
+  
+  scrollbar-base-color: $gray20;
+  scrollbar-3dlight-color: $gray20;
+  scrollbar-highlight-color: $gray20;
+  scrollbar-track-color: $gray17;
+  scrollbar-arrow-color: $gray20;
+  scrollbar-shadow-color: $gray20;
+  scrollbar-dark-shadow-color: $gray20;
+}

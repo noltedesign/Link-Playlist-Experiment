@@ -1,0 +1,24 @@
+%div.cell.feed
+  %h4 Poptart Playlist
+  %p
+    A test in aggregation.
+  %p
+    This page is a clone of my feed, sing up to start cusotmizing yours!
+  
+  %ul
+    - @listu.each do |userentry|
+      %li 
+        =userentry.email
+        %br
+        =userentry.id
+        
+- @feeds.each do |feed|  
+  %div.cell.feed
+    %h5.feed-title
+      =feed.title
+    
+    %ul
+      - feed.entries.each do |entry|
+        %li
+          %a{:title => remove_html_tags( entry.summary ), :href => entry.url, :target => 'blank', :class => 'tooltip'}
+            =entry.title

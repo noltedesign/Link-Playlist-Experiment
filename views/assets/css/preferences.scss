@@ -1,0 +1,15 @@
+.preferences #content {
+  #user-feeds {
+    li {
+      background:$gray20;
+      border-bottom:none;
+      padding:.5rem .75rem;
+      text-overflow:ellipsis;
+      white-space: nowrap;
+      overflow:hidden;
+      margin:.25rem 0;
+    } 
+    
+    
+  }
+}

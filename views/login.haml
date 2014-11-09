@@ -1,0 +1,12 @@
+.cell
+  %h4 Login
+  
+  %form.login{:method=>"post", :action=>"/login"}
+    %input#email{:type=>"text", :required => true, :name => 'email'}
+    %label email
+    
+    %input#password{:type=>"text", :required => true, :name => 'password'}
+    %label password
+    
+    %button{:type=>"submit"} Sign In
+  

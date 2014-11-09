@@ -1,0 +1,42 @@
+.cell.feed
+  %h5.feed-title 
+    Welcome
+    =current_user.email
+    
+.cell.feed
+  %h5.feed-title Preferences
+  
+.cell.feed
+  %h5.feed-title Feeds
+  
+  %ul#user-feeds
+    - @current_feed_order.each do |feeditem|
+      %li{ :data => {:id => feeditem.id} }
+        =feeditem.link
+        
+  %form.playlistorder{:method=>"post", :action=>"/save-order"}
+    
+    %input#neworder{:type=>"hidden", :name => 'order[]', :value => '' }
+    
+    %button{:type=>"submit"} Update Playlist Order
+
+
+%script{:src => "/js/Sortable.min.js"}
+:javascript
+  var el = document.getElementById('user-feeds');
+  new Sortable(el);
+
+  $('.playlistorder').submit( function() {
+    
+    var feedorder = [];
+    
+    $('#user-feeds li').each(function( index ) {
+      feedorder.push( $(this).data( 'id' ) );
+    });
+    
+    $('#neworder').val( feedorder );
+    
+    return true;
+    
+  });
+  
