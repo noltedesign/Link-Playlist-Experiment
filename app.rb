@@ -12,16 +12,17 @@ require './config/sass' #Configure Sass and Compass
 
 
 class User < ActiveRecord::Base
-  has_many :urls
+  has_many :feeds
+  has_many :feed_items, through: :feeds
 end
 
-class Url < ActiveRecord::Base
-  belongs_to :user
-  has_many :feed_items
+class Feed < ActiveRecord::Base
+  belongs_to :user 
+  has_many :feed_items, dependent: :destroy
 end
 
-class Feed_item < ActiveRecord::Base
-  belongs_to :url
+class FeedItem < ActiveRecord::Base
+  belongs_to :feed
 end
 
 
@@ -64,12 +65,7 @@ get '/' do
   @listu = User.order("created_at DESC")
   
   #make homepage my list
-  @userfeed = User.find_by_id(17)
-  @feeds = Array.new
-  @userfeed.urls.each do |rssfeed|
-    @feeds.push( Feedjira::Feed.fetch_and_parse rssfeed.link )
-  end
-  
+  @userfeed = User.find_by_id(17) 
   haml :index
 end
 
@@ -120,7 +116,7 @@ end
 #Preferences
 get '/preferences' do
   @body_class = 'preferences'
-  @current_feed_order = current_user.urls(:order => 'order')
+  @current_feed_order = current_user.feeds(:order => 'order')
   
   if admin?
     haml :preferences
@@ -134,7 +130,7 @@ post '/save-order' do
   @feedorder = @feedorder.first.split(",")
   
   @feedorder.each_with_index do |o, i|
-    toUpdate = Url.find_by( id: o )
+    toUpdate = Feed.find_by( id: o )
     toUpdate.order = i
     toUpdate.save
   end
@@ -153,7 +149,27 @@ get '/add-feed' do
 end
 
 post '/add-feed' do
-  @url = Url.new(params[:urls])
+  
+  @url = Feed.new(params[:urls])
+  @feed_top = Feedjira::Feed.fetch_and_parse @url.link
+  
+  @url['feed_title'] = @feed_top.title
+  @url['feed_link'] = @feed_top.url
+  @url.save
+  
+  @feed_top.entries.each do |entry|
+    @entry = FeedItem.new
+    @entry['feed_id'] = @url.id
+    @entry['title'] = entry.title
+    @entry['summary'] = entry.summary
+    @entry['item_url'] = entry.url
+    @entry['published_on'] = entry.published
+    @entry['guid'] = entry.id
+    
+    @entry.save
+    
+  end
+
   if @url.save
     redirect '/#saved'
   else
@@ -165,11 +181,6 @@ end
 get '/:name' do |n|
   @body_class = 'feed-page user-' + n
   @userfeed = User.where(userurl: n).first
-  @feeds = Array.new
-  
-  @userfeed.urls.each do |rssfeed|
-    @feeds.push( Feedjira::Feed.fetch_and_parse rssfeed.link )
-  end
 
   haml :userfeed
 
