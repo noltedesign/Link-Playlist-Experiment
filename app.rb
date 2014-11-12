@@ -129,10 +129,18 @@ post '/save-order' do
   @feedorder = params['order']
   @feedorder = @feedorder.first.split(",")
   
+  @trashit = params['trash']
+  @trashit = @trashit.first.split(",")
+  
   @feedorder.each_with_index do |o, i|
     toUpdate = Feed.find_by( id: o )
     toUpdate.order = i
     toUpdate.save
+  end
+  
+  @trashit.each do |t|
+    toTrash = Feed.find_by( id: t )
+    toTrash.destroy
   end
   
   redirect '/preferences#success'
@@ -157,7 +165,7 @@ post '/add-feed' do
   @url['feed_link'] = @feed_top.url
   @url.save
   
-  @feed_top.entries.first(5).each do |entry|
+  @feed_top.entries.first(80).each do |entry|
     @entry = FeedItem.new
     @entry['feed_id'] = @url.id
     @entry['title'] = entry.title

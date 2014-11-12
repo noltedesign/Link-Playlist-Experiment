@@ -19,7 +19,8 @@
       =feedin.feed_title
     
     %ul
-      - feedin.feed_items.each do |entry|
+      -feedin.feed_items.order(published_on: :desc).each do |entry|
         %li
           %a{:title => remove_html_tags( entry.summary ), :href => entry.item_url, :target => 'blank', :class => 'tooltip'}
             =entry.title
+

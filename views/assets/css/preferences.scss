@@ -10,6 +10,15 @@
       margin:.25rem 0;
     } 
     
-    
   }
+  
+  #trash {
+    background:$gray20;
+    height:100px;
+    padding:.5rem .75rem;
+    span {
+      color:$gray40;
+    }
+  }
+  
 }
