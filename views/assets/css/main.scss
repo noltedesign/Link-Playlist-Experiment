@@ -28,13 +28,17 @@ body {
     min-width:360px;
     max-width:600px;
     background-clip: border-box;
-    
     @include scrollbar;
+    
+    h5 span {
+      font-size:.5rem;
+      font-weight:bold;
+      vertical-align:top; 
+    }
     
     &:nth-child(even) {
       background:$gray17;
     }
-    
     
     ul {
       margin:0;

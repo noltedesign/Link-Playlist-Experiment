@@ -165,7 +165,7 @@ post '/add-feed' do
   @url['feed_link'] = @feed_top.url
   @url.save
   
-  @feed_top.entries.first(80).each do |entry|
+  @feed_top.entries.first(60).each do |entry|
     @entry = FeedItem.new
     @entry['feed_id'] = @url.id
     @entry['title'] = entry.title

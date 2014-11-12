@@ -2,6 +2,10 @@
   %div.cell.feed
     %h5
       =feedin.feed_title
+      %span
+        (
+        =feedin.feed_items.count
+        )
     
     %ul
       -feedin.feed_items.order(published_on: :desc).each do |entry|
