@@ -7,9 +7,10 @@ require 'sass'
 require 'sinatra'
 require 'sinatra/activerecord'
 
-require './config/environments' #database config
+require './config/environment' #database config
 require './config/sass' #Configure Sass and Compass
 
+set :environment, :development
 
 class User < ActiveRecord::Base
   has_many :feeds
@@ -56,7 +57,6 @@ helpers do
   end
   
 end
-
 
 
 # Index
@@ -157,7 +157,7 @@ post '/add-feed' do
   @url['feed_link'] = @feed_top.url
   @url.save
   
-  @feed_top.entries.each do |entry|
+  @feed_top.entries.first(5).each do |entry|
     @entry = FeedItem.new
     @entry['feed_id'] = @url.id
     @entry['title'] = entry.title
