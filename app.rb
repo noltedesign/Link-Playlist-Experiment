@@ -147,25 +147,22 @@ post '/save-order' do
 end
 
 #Add Feed
-get '/add-feed' do
-   @body_class = 'add-feed'
-  if admin?
-    haml :add_feed
-  else
-    redirect '/login'
-  end
-end
 
 post '/add-feed' do
   
   @url = Feed.new(params[:urls])
-  @feed_top = Feedjira::Feed.fetch_and_parse @url.link
+  
+  if @url.feed_type == 'pinterest'
+    @feed_top = Feedjira::Feed.fetch_and_parse "http://pinterest.com/#{@url.link}/feed.rss" 
+  else 
+    @feed_top = Feedjira::Feed.fetch_and_parse @url.link
+  end
   
   @url['feed_title'] = @feed_top.title
   @url['feed_link'] = @feed_top.url
   @url.save
   
-  @feed_top.entries.first(60).each do |entry|
+  @feed_top.entries.first(80).each do |entry|
     @entry = FeedItem.new
     @entry['feed_id'] = @url.id
     @entry['title'] = entry.title
@@ -184,6 +181,8 @@ post '/add-feed' do
     'Oops, something went wrong'
   end
 end
+
+
 
 #User Feed
 get '/:name' do |n|

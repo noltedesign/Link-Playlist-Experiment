@@ -3,11 +3,33 @@
     Welcome
     =current_user.email
     
-.cell.feed
-  %h5.feed-title Preferences
+.cell.feed.addfeed
+  %h5.feed-title Add Feeds
   
-.cell.feed
-  %h5.feed-title Feeds
+  %form.addfeed_form{:method=>"post", :action=>"/add-feed"}
+    %input#addfeed{:type=>"text", :required => true, :name => 'urls[link]'}
+    %label Add Feed
+    
+    %input#userid{:type=>"hidden", :name => 'urls[user_id]', :value => current_user.id }
+    
+    %button{:type=>"submit"} Add
+    
+  %br
+  %br  
+  
+  %form.pinterest{:method=>"post", :action=>"/add-feed"}
+    %input.pinname{:type=>"text", :required => true, :name => 'urls[link]'}
+    %label Pinterest Username
+    
+    %input#useridP{:type=>"hidden", :name => 'urls[user_id]', :value => current_user.id }
+    %input.feedtype{:type=>"hidden", :name => 'urls[feed_type]', :value => 'pinterest' }
+    
+    %button{:type=>"submit"} Add Pinterest User
+  
+
+  
+.cell.feed.order
+  %h5.feed-title Order Feeds
   
   %ul#user-feeds
     - @current_feed_order.each do |feeditem|

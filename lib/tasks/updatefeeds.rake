@@ -19,7 +19,7 @@ task :update_feeds => :environment do
       end
     end
     
-    feed.feed_items.order(published_on: :desc).drop(60).each do |gone|
+    feed.feed_items.order(published_on: :desc).drop(80).each do |gone|
       gone.destroy
     end
     

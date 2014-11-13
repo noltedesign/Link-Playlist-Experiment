@@ -30,10 +30,14 @@ body {
     background-clip: border-box;
     @include scrollbar;
     
-    h5 span {
-      font-size:.5rem;
-      font-weight:bold;
-      vertical-align:top; 
+    h5 {
+      margin-bottom:.5rem;
+      span {
+        font-size:.5rem;
+        font-weight:bold;
+        vertical-align:top;
+        opacity:.2; 
+      }
     }
     
     &:nth-child(even) {
@@ -55,6 +59,26 @@ body {
         }
         &:last-of-type {
           border-bottom:none;
+        }
+        &.pinterest-item {
+          text-align:center;
+          color:$gray40;
+          border-bottom:none;
+          p {
+            line-height:1.1;
+            margin-bottom:0;
+            &:last-of-type {
+              margin-bottom:.75rem;
+            }
+          }
+          a {
+            text-align:center;
+            width:100%;
+            padding-left:14px;
+          }
+          img {
+            display:inline-block;
+          }
         }
       }
     }
