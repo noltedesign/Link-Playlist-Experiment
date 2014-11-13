@@ -153,7 +153,8 @@ post '/add-feed' do
   @url = Feed.new(params[:urls])
   
   if @url.feed_type == 'pinterest'
-    @feed_top = Feedjira::Feed.fetch_and_parse "http://pinterest.com/#{@url.link}/feed.rss" 
+    @url.link = "http://pinterest.com/#{@url.link}/feed.rss"
+    @feed_top = Feedjira::Feed.fetch_and_parse @url.link
   else 
     @feed_top = Feedjira::Feed.fetch_and_parse @url.link
   end

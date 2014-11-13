@@ -17,10 +17,22 @@
   %div.cell.feed
     %h5
       =feedin.feed_title
+      -if feedin.feed_type == "pinterest"
+        's Pinterest
+      %span
+        (
+        =feedin.feed_items.count
+        )
     
     %ul
-      -feedin.feed_items.order(published_on: :desc).each do |entry|
-        %li
-          %a{:title => remove_html_tags( entry.summary ), :href => entry.item_url, :target => 'blank', :class => 'tooltip'}
-            =entry.title
-
+      -if feedin.feed_type == "pinterest"
+        -feedin.feed_items.order(published_on: :desc).each do |entry|
+          %li.pinterest-item
+            =entry.summary  
+              
+              
+      -if feedin.feed_type === nil
+        -feedin.feed_items.order(published_on: :desc).each do |entry|
+          %li
+            %a{:title => remove_html_tags( entry.summary ), :href => entry.item_url, :target => 'blank', :class => 'tooltip'}
+              =entry.title
