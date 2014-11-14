@@ -28,11 +28,15 @@
       -if feedin.feed_type == "pinterest"
         -feedin.feed_items.order(published_on: :desc).each do |entry|
           %li.pinterest-item
+            - if admin?
+              %span.save-item{ :data => {:id => entry.id} } save
             =entry.summary  
               
               
       -if feedin.feed_type === nil
         -feedin.feed_items.order(published_on: :desc).each do |entry|
           %li
+            - if admin?
+              %span.save-item{ :data => {:id => entry.id} } save
             %a{:title => remove_html_tags( entry.summary ), :href => entry.item_url, :target => 'blank', :class => 'tooltip'}
               =entry.title

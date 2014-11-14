@@ -201,7 +201,6 @@ get '/:name' do |n|
   @userfeed = User.where(userurl: n).first
 
   haml :userfeed
-
 end
 
 post '/save-item' do
@@ -223,5 +222,9 @@ post '/save-item' do
     @saveIt['guid'] = @originalItem.guid
   
     @saveIt.save
+  
+  current_user.saved_items.order(created_at: :desc).drop(40).each do |gone|
+    gone.destroy
+  end
   
 end

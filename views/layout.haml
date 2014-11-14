@@ -30,6 +30,7 @@
             %a{:title => 'sign up', :href => '/login'} Login
     
     #content.row.align-stretch.hold.nowrap.justify-start
+      
       - if admin?
         .saved-items-list
           %ul.saved-ul 
@@ -37,4 +38,5 @@
               %li
                 %a{:title => remove_html_tags( entry.summary ), :href => entry.item_url, :target => 'blank', :class => 'tooltip'}
                   =entry.title
+                  
       =yield

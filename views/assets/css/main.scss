@@ -26,7 +26,6 @@ body {
     position:fixed;
     overflow:auto;
     padding:1rem 1.75rem 3rem;
-    box-shadow: rgba(0, 0, 0, 0.15) 0 0 10px;
     @include scrollbar;
     width:400px;
     top:$headerheight;
