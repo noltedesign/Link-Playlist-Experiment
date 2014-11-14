@@ -32,8 +32,8 @@
     #content.row.align-stretch.hold.nowrap.justify-start
       - if admin?
         .saved-items-list
-          %ul 
-            -current_user.saved_items.order(published_on: :desc).each do |entry|
+          %ul.saved-ul 
+            -current_user.saved_items.order(created_at: :desc).each do |entry|
               %li
                 %a{:title => remove_html_tags( entry.summary ), :href => entry.item_url, :target => 'blank', :class => 'tooltip'}
                   =entry.title

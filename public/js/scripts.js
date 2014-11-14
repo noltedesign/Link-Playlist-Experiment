@@ -13,7 +13,10 @@ $(document).ready(function() {
   
   $('.save-item').click(function(e){
     var itemi = $(this).data('id');
-    console.log(itemi);
+    
+    newItem = $(this).parent().html();
+    $('.saved-ul').prepend("<li>"+newItem+"</li>");
+    
     $.ajax({
       url: "save-item",
       dataType: 'json',

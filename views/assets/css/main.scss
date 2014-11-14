@@ -41,7 +41,7 @@ body {
     -ms-transform: translate3d(410px,0,0);
     -o-transform: translate3d(410px,0,0);
     transform: translate3d(410px,0,0);
-    
+    .save-item {display:none;}
     .show-saved & {
       -webkit-transform: translate3d(0,0,0);
       -moz-transform: translate3d(0,0,0);
