@@ -9,16 +9,18 @@
 
   %body{:class => "#{@body_class}"}
     %header  
+      .saved-alert Saved
+      
       %a{:title => 'home', :href => '/'} Poptart Playlist
 
       %ul.menu
         - if admin?
           %li 
             %a{:title => 'Add Feed', :href => current_user.userurl } Your Playlist
-          %li 
-            %a{:title => 'Add Feed', :href => '/preferences'} + Feed
           %li
-            %a{:title => 'Preferences', :href => '/preferences'} Preferences
+            %a{:title => 'Preferences', :href => '/preferences'} Manage Feeds
+          %li
+            %a{:title => 'Show Saved', :href => '#', :class => 'show-saved'} Saved
           %li 
             %a{:title => 'log out', :href => '/logout'} Logout
         - else
@@ -28,4 +30,11 @@
             %a{:title => 'sign up', :href => '/login'} Login
     
     #content.row.align-stretch.hold.nowrap.justify-start
+      - if admin?
+        .saved-items-list
+          %ul 
+            -current_user.saved_items.order(published_on: :desc).each do |entry|
+              %li
+                %a{:title => remove_html_tags( entry.summary ), :href => entry.item_url, :target => 'blank', :class => 'tooltip'}
+                  =entry.title
       =yield

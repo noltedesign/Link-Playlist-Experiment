@@ -10,24 +10,33 @@ require 'sinatra/activerecord'
 require './config/environment' #database config
 require './config/sass' #Configure Sass and Compass
 
+
+
 set :environment, :development
 
 class User < ActiveRecord::Base
   has_many :feeds
   has_many :feed_items, through: :feeds
+  has_many :saved_items
 end
 
 class Feed < ActiveRecord::Base
   belongs_to :user 
-  has_many :feed_items, dependent: :destroy
+  has_many :feed_items, dependent: :destroy, :inverse_of => :feed
 end
 
 class FeedItem < ActiveRecord::Base
-  belongs_to :feed
+  belongs_to :feed, :inverse_of => :feed_items
+end
+
+class SavedItem < ActiveRecord::Base
+  belongs_to :user
 end
 
 
+
 enable :sessions
+
 
 
 helpers do
@@ -57,6 +66,7 @@ helpers do
   end
   
 end
+
 
 
 # Index
@@ -192,4 +202,26 @@ get '/:name' do |n|
 
   haml :userfeed
 
+end
+
+post '/save-item' do
+    
+  @saveItem = params[:id];
+  
+  @originalItem = FeedItem.find_by_id(@saveItem)
+  
+  @saveIt = SavedItem.new
+    @saveIt['user_id'] = current_user.id
+    @saveIt['feed_title'] = @originalItem.feed.feed_title
+    @saveIt['feed_type'] = @originalItem.feed.feed_type
+    
+    @saveIt['feed_link'] = @originalItem.feed.feed_link
+    @saveIt['title'] = @originalItem.title
+    @saveIt['summary'] = @originalItem.summary
+    @saveIt['item_url'] = @originalItem.item_url
+    @saveIt['published_on'] = @originalItem.published_on
+    @saveIt['guid'] = @originalItem.guid
+  
+    @saveIt.save
+  
 end

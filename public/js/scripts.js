@@ -6,8 +6,30 @@
 
 $(document).ready(function() {
   $('.tooltip').tooltipster({
-      contentAsHTML: true,
-      delay: 200,
-      iconDesktop: true
+    contentAsHTML: true,
+    delay: 200,
+    iconDesktop: true
+  });
+  
+  $('.save-item').click(function(e){
+    var itemi = $(this).data('id');
+    console.log(itemi);
+    $.ajax({
+      url: "save-item",
+      dataType: 'json',
+      type: "POST",
+      data: { id: itemi },
+      accepts: "application/json"
+    }).always(function() {
+      $('body').addClass("saved").delay(2000).queue(function(next){
+        $(this).removeClass("saved");
+        next();
+      });
+    });
+  });
+  
+  $('.show-saved').click(function(e){
+    e.preventDefault();
+     $('body').toggleClass("show-saved")
   });
 });

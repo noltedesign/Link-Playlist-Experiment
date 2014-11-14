@@ -22,7 +22,38 @@ body {
   height:100%;
   overflow-y:hidden;
   
-  .feed {
+  .saved-items-list {
+    position:fixed;
+    overflow:auto;
+    padding:1rem 1.75rem 3rem;
+    box-shadow: rgba(0, 0, 0, 0.15) 0 0 10px;
+    @include scrollbar;
+    width:400px;
+    top:$headerheight;
+    bottom:0;
+    right:0;
+    background:$gray35;
+    opacity:0;
+    transition:all .45s ease-in-out;
+    z-index:3;
+    -webkit-transform: translate3d(410px,0,0);
+    -moz-transform: translate3d(410px,0,0);
+    -ms-transform: translate3d(410px,0,0);
+    -o-transform: translate3d(410px,0,0);
+    transform: translate3d(410px,0,0);
+    
+    .show-saved & {
+      -webkit-transform: translate3d(0,0,0);
+      -moz-transform: translate3d(0,0,0);
+      -ms-transform: translate3d(0,0,0);
+      -o-transform: translate3d(0,0,0);
+      transform: translate3d(0,0,0);
+      opacity:1;
+    }
+  }
+  
+  
+  .feed, .saved-items-list {
     overflow:auto;
     padding:1rem 1.75rem 3rem;
     min-width:360px;
@@ -53,6 +84,16 @@ body {
         line-height:1.3;
         font-size:.8rem;
         position: relative;
+        .save-item {
+          position:absolute;
+          top:1rem;
+          right:0;
+          font-size:.6rem;
+          line-height:1;
+          position:absolute;
+          color:$gray40;
+          cursor:pointer;
+        }
         a {
           padding-right:14px;
           display: inline-block;
