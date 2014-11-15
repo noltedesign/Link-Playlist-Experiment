@@ -11,6 +11,7 @@ $(document).ready(function() {
     iconDesktop: true
   });
   
+  // Save Feed
   $('.save-item').click(function(e){
     var itemi = $(this).data('id');
     
@@ -31,8 +32,28 @@ $(document).ready(function() {
     });
   });
   
+  
+  // Toggle Feed drawer
   $('.show-saved').click(function(e){
     e.preventDefault();
      $('body').toggleClass("show-saved")
+  });
+  
+  // Delete Feed
+  $('.delete-item').click(function(e){
+    var itemd = $(this).data('id');
+    $(this).parent().remove();
+    $.ajax({
+      url: "delete-item",
+      dataType: 'json',
+      type: "POST",
+      data: { id: itemd },
+      accepts: "application/json"
+    }).always(function() {
+      $('body').addClass("removed").delay(2000).queue(function(next){
+        $(this).removeClass("removed");
+        next();
+      });
+    });
   });
 });

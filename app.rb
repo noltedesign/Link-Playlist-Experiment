@@ -204,10 +204,7 @@ get '/:name' do |n|
 end
 
 post '/save-item' do
-    
-  @saveItem = params[:id];
-  
-  @originalItem = FeedItem.find_by_id(@saveItem)
+  @originalItem = FeedItem.find_by_id(params[:id])
   
   @saveIt = SavedItem.new
     @saveIt['user_id'] = current_user.id
@@ -226,5 +223,9 @@ post '/save-item' do
   current_user.saved_items.order(created_at: :desc).drop(40).each do |gone|
     gone.destroy
   end
-  
+end
+
+post '/delete-item' do
+  @togo = SavedItem.find_by_id(params[:id])
+  @togo.destroy
 end
