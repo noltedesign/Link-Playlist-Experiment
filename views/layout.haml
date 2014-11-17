@@ -37,7 +37,7 @@
             -current_user.saved_items.order(created_at: :desc).each do |entry|
               %li
                 %span.delete-item{ :data => {:id => entry.id} } delete
-                %a{:title => remove_html_tags( entry.summary ), :href => entry.item_url, :target => 'blank', :class => 'tooltip'}
-                  =entry.title
+                %a{:title => remove_html_tags( entry.feed_item.summary ), :href => entry.feed_item.item_url, :target => 'blank', :class => 'tooltip'}
+                  =entry.feed_item.title
                   
       =yield

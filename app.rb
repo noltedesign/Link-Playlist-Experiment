@@ -3,6 +3,7 @@ require 'bcrypt'
 require 'compass'
 require 'feedjira'
 require 'haml'
+require 'sanitize'
 require 'sass'
 require 'sinatra'
 require 'sinatra/activerecord'
@@ -15,22 +16,34 @@ require './config/sass' #Configure Sass and Compass
 set :environment, :development
 
 class User < ActiveRecord::Base
-  has_many :feeds
+  has_many :feeds, dependent: :destroy
   has_many :feed_items, through: :feeds
-  has_many :saved_items
+  has_many :saved_items, dependent: :destroy
 end
 
 class Feed < ActiveRecord::Base
   belongs_to :user 
   has_many :feed_items, dependent: :destroy, :inverse_of => :feed
+  
+  def pinterest?
+    feed_type == 'pinterest'
+  end
+  
 end
 
 class FeedItem < ActiveRecord::Base
   belongs_to :feed, :inverse_of => :feed_items
+  has_many :saved_items, dependent: :destroy 
+  
+  def saved_by_user?
+    saved_items.any?
+  end
+  
 end
 
 class SavedItem < ActiveRecord::Base
   belongs_to :user
+  belongs_to :feed_item
 end
 
 
@@ -164,18 +177,18 @@ post '/add-feed' do
   
   if @url.feed_type == 'pinterest'
     @url.link = "http://pinterest.com/#{@url.link}/feed.rss"
-    @feed_top = Feedjira::Feed.fetch_and_parse @url.link
-  else 
-    @feed_top = Feedjira::Feed.fetch_and_parse @url.link
   end
+  
+  @feed_top = Feedjira::Feed.fetch_and_parse @url.link
   
   @url['feed_title'] = @feed_top.title
   @url['feed_link'] = @feed_top.url
   @url.save
   
   @feed_top.entries.first(80).each do |entry|
+    
     @entry = FeedItem.new
-    @entry['feed_id'] = @url.id
+    @entry.feed = @url
     @entry['title'] = entry.title
     @entry['summary'] = entry.summary
     @entry['item_url'] = entry.url
@@ -207,25 +220,17 @@ post '/save-item' do
   @originalItem = FeedItem.find_by_id(params[:id])
   
   @saveIt = SavedItem.new
-    @saveIt['user_id'] = current_user.id
-    @saveIt['feed_title'] = @originalItem.feed.feed_title
-    @saveIt['feed_type'] = @originalItem.feed.feed_type
-    
-    @saveIt['feed_link'] = @originalItem.feed.feed_link
-    @saveIt['title'] = @originalItem.title
-    @saveIt['summary'] = @originalItem.summary
-    @saveIt['item_url'] = @originalItem.item_url
-    @saveIt['published_on'] = @originalItem.published_on
-    @saveIt['guid'] = @originalItem.guid
-  
-    @saveIt.save
+  @saveIt.user = current_user
+  @saveIt.feed_item = @originalItem
+  @saveIt.save
   
   current_user.saved_items.order(created_at: :desc).drop(40).each do |gone|
     gone.destroy
   end
+  
 end
 
-post '/delete-item' do
+delete '/item/:id' do
   @togo = SavedItem.find_by_id(params[:id])
   @togo.destroy
 end

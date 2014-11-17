@@ -22,6 +22,7 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
+    crass (0.2.1)
     curb (0.8.6)
     feedjira (1.5.0)
       curb (~> 0.8)
@@ -38,10 +39,16 @@ GEM
     minitest (5.4.2)
     nokogiri (1.6.4)
       mini_portile (~> 0.6.0)
+    nokogumbo (1.1.12)
+      nokogiri
     pg (0.17.1)
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
+    sanitize (3.0.3)
+      crass (~> 0.2.0)
+      nokogiri (>= 1.4.4)
+      nokogumbo (= 1.1.12)
     sass (3.3.11)
     sax-machine (1.0.3)
     sinatra (1.4.5)
@@ -66,6 +73,7 @@ DEPENDENCIES
   feedjira
   haml
   pg
+  sanitize
   sass
   sinatra
   sinatra-activerecord

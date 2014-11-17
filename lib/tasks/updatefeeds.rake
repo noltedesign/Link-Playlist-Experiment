@@ -19,8 +19,8 @@ task :update_feeds => :environment do
       end
     end
     
-    feed.feed_items.order(published_on: :desc).drop(80).each do |gone|
-      gone.destroy
+    feed.feed_items.order(published_on: :desc).drop(80).each do |feed_item|
+      feed_item.destroy unless feed_item.saved_by_user?
     end
     
     

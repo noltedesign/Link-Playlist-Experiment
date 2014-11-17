@@ -32,7 +32,6 @@ $(document).ready(function() {
     });
   });
   
-  
   // Toggle Feed drawer
   $('.show-saved').click(function(e){
     e.preventDefault();
@@ -44,11 +43,9 @@ $(document).ready(function() {
     var itemd = $(this).data('id');
     $(this).parent().remove();
     $.ajax({
-      url: "delete-item",
+      url: "/item/"+itemd,
       dataType: 'json',
-      type: "POST",
-      data: { id: itemd },
-      accepts: "application/json"
+      type: "DELETE",
     }).always(function() {
       $('body').addClass("removed").delay(2000).queue(function(next){
         $(this).removeClass("removed");
