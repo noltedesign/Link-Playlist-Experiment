@@ -2,6 +2,11 @@
   %h5.feed-title 
     Welcome
     =current_user.email
+      
+  %form.addfeed_form{:method=>"post", :action=>"/delete-account"}
+
+    %button{:type=>"submit"} Delete My Account
+    
     
 .cell.feed.addfeed
   %h5.feed-title Add Feeds

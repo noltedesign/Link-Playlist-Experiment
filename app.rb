@@ -16,6 +16,8 @@ require './config/sass' #Configure Sass and Compass
 set :environment, :development
 
 class User < ActiveRecord::Base
+  include BCrypt
+  
   has_many :feeds, dependent: :destroy
   has_many :feed_items, through: :feeds
   has_many :saved_items, dependent: :destroy
@@ -104,7 +106,11 @@ get '/signup' do
 end
 
 post '/signup' do
+  
   @user = User.new(params[:users])
+  
+  @user.password_hash = BCrypt::Password.create(params[:password])
+  
   if @user.save
     redirect '/#success'
   else
@@ -124,7 +130,9 @@ post '/login' do
   
   @loggeduser =User.find_by_email(@userlogemail)
   
-  if @loggeduser.password == @userlogpass
+  @passhash = BCrypt::Password.new(@loggeduser.password_hash)
+  
+  if @passhash == @userlogpass
     session[:admin]=true
     session[:loggedID]=@loggeduser.id
     
