@@ -94,7 +94,7 @@ get '/' do
   @listu = User.order("created_at DESC")
   
   #make homepage my list
-  @userfeed = User.find_by_id(17) 
+  @userfeed = User.find_by_id(21) 
   haml :index
 end
 
@@ -180,6 +180,13 @@ post '/save-order' do
   
   redirect '/preferences#success'
 end
+
+post '/delete-account' do
+  User.find(params[:user_id]).destroy()
+  session.clear
+  redirect '/'
+end
+
 
 #Add Feed
 
