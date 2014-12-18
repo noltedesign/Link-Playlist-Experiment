@@ -1,16 +1,4 @@
-%div.cell.feed
-  %h4 Poptart Playlist
-  %p
-    A test in aggregation.
-  %p
-    This page is a clone of my feed, sing up to start cusotmizing yours!
-  
-  %ul
-    - @listu.each do |userentry|
-      %li 
-        =userentry.email
-        %br
-        =userentry.id
+=haml :'partials/intro'
         
         
 -@userfeed.feeds.each do |feedin|  

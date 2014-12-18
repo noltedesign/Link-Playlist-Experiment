@@ -113,8 +113,8 @@ a {
 	-webkit-transition:.2s linear;
 	-moz-transition:.2s linear;
 }
-a:link, a:visited {text-decoration:none; color:#9ccded;} /* SET */
-a:active, a:hover {color:#f15a3b;} /* SET */
+a:link, a:visited {text-decoration:none; color:$blue;} /* SET */
+a:active, a:hover {color:$red;} /* SET */
 
 
 /* GRID */

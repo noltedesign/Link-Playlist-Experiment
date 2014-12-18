@@ -20,7 +20,7 @@ header {
       margin-left:.5rem;
     }
   }
-  a:link {text-decoration:none; color:#3f85b1;}
+  a:link, a:visited {text-decoration:none; color:$gray40;}
   a:active, a:hover {color:#f15a3b;}
   
    &:after {

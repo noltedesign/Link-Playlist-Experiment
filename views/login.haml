@@ -1,12 +1,14 @@
-.cell
+=haml :'partials/intro'
+
+.cell.feed
   %h4 Login
   
   %form.login{:method=>"post", :action=>"/login"}
-    %input#email{:type=>"text", :required => true, :name => 'email'}
-    %label email
+    .field
+      %input#email{:type=>"email", :required => true, :name => 'email', :placeholder => 'email'}
     
-    %input#password{:type=>"text", :required => true, :name => 'password'}
-    %label password
+    .field
+      %input#password{:type=>"password", :required => true, :name => 'password',  :placeholder => 'password'}
     
     %button{:type=>"submit"} Sign In
   

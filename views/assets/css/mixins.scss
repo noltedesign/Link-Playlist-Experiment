@@ -1,3 +1,4 @@
+$gray50: hsl(0,0,50);
 $gray40: hsl(0,0,40);
 $gray35: hsl(0,0,35);
 $gray28: hsl(0,0,28);
@@ -8,6 +9,9 @@ $gray15: hsl(0,0,15);
 $gray13: hsl(0,0,13);
 $gray10: hsl(0,0,10);
 $gray05: hsl(0,0,05);
+
+$blue: #9ccded;
+$red: #f15a3b;
 
 $headerheight: 35px;
 
@@ -26,3 +30,33 @@ $font1: 'Helvetica Neue', Arial, Helvetica, sans-serif;
   scrollbar-shadow-color: $gray20;
   scrollbar-dark-shadow-color: $gray20;
 }
+
+@mixin scrollbar-main {
+  &::-webkit-scrollbar {background: $gray25;}
+  &::-webkit-scrollbar-thumb {background: $gray35;}
+  &::-webkit-scrollbar-corner {background: $gray25;}
+  
+  scrollbar-base-color: $gray35;
+  scrollbar-3dlight-color: $gray35;
+  scrollbar-highlight-color: $gray35;
+  scrollbar-track-color: $gray25;
+  scrollbar-arrow-color: $gray35;
+  scrollbar-shadow-color: $gray35;
+  scrollbar-dark-shadow-color: $gray35;
+}
+
+
+
+// Media Break Adjustments
+
+$xxlarg-max: "only screen and (min-width: #{123.750rem})"; // < 1980px
+$xlarge-min: "only screen and (max-width: #{100rem})"; // > 1600px
+
+$large-min: "only screen and (max-width: #{63.938rem})"; // > 1024px
+$medium-min: "only screen and (max-width: #{59.938rem})"; // > 960px
+
+$small-max: "only screen and (min-width: #{47.938rem})"; // < 769px
+$small-min: "only screen and (max-width: #{47.938rem})"; // > 768px
+
+$smaller-min: "only screen and (max-width: #{39.938rem})"; // >640px
+$mobile-min: "only screen and (max-width: #{29.938rem})"; // >480px

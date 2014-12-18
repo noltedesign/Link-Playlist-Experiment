@@ -29,6 +29,10 @@ class Feed < ActiveRecord::Base
     feed_type == 'pinterest'
   end
   
+  def dribbble?
+    feed_type == 'dribbble'
+  end
+  
 end
 
 class FeedItem < ActiveRecord::Base
@@ -177,6 +181,10 @@ post '/add-feed' do
   
   if @url.feed_type == 'pinterest'
     @url.link = "http://pinterest.com/#{@url.link}/feed.rss"
+  end
+  
+  if @url.feed_type == 'dribbble'
+    @url.link = "https://dribbble.com/#{@url.link}/shots/following.rss"
   end
   
   @feed_top = Feedjira::Feed.fetch_and_parse @url.link
