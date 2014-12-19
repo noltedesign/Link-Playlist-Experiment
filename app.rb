@@ -61,13 +61,13 @@ enable :sessions
 helpers do
   
   #start Session
-  def admin?
-    session[:admin]
+  def loggedin?
+    session[:loggedIN]
   end
   
   #define users
   def current_user
-    if admin?
+    if loggedin?
       user_id = session[:loggedID]
       user = User.find_by_id(user_id)
     end
@@ -131,12 +131,12 @@ post '/login' do
   @passhash = BCrypt::Password.new(@loggeduser.password_hash)
   
   if @passhash == @userlogpass
-    session[:admin]=true
+    session[:loggedIN]=true
     session[:loggedID]=@loggeduser.id
     
     redirect '/'
   else
-    session[:admin]=nil
+    session[:loggedIN]=nil
     "Doh, wrong password"
   end
 end
@@ -151,7 +151,7 @@ get '/preferences' do
   @body_class = 'preferences'
   @current_feed_order = current_user.feeds(:order => 'order')
   
-  if admin?
+  if loggedin?
     haml :preferences
   else
     redirect '/login'

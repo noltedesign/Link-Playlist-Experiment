@@ -1,7 +1,7 @@
 %ul      
   -feedin.feed_items.order(published_on: :desc).limit(80).each do |entry|
     %li{ :class => feedin.feed_type }
-      - if admin?
+      - if loggedin?
         %span.save-item{ :data => {:id => entry.id} } save
       %a{:title => remove_html_tags( entry.summary ), :href => entry.item_url, :target => 'blank', :class => 'tooltip'}
         -if feedin.pinterest? or feedin.dribbble?

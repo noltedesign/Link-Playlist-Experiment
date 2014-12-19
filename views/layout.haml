@@ -14,7 +14,7 @@
       %a{:title => 'home', :href => '/'} Poptart Playlist
 
       %ul.menu
-        - if admin?
+        - if loggedin?
           %li 
             %a{:title => 'Add Feed', :href => current_user.userurl } Your Playlist
           %li
@@ -29,7 +29,7 @@
     
     #content.row.align-stretch.hold.nowrap.justify-start
       
-      - if admin?
+      - if loggedin?
         .saved-items-list
           %ul.saved-ul 
             -current_user.saved_items.order(created_at: :desc).each do |entry|
