@@ -12,3 +12,18 @@
     
     %button{:type=>"submit"} Sign In
   
+  
+.cell.feed
+  %h4 Signup
+  
+  %form.signup{:method=>"post", :action=>"/signup"}
+    .field
+      %input#email{:type=>"email", :required => true, :name => 'users[email]', :placeholder =>  'email', :autocomplete => 'off'}    
+    
+    .field
+      %input#password{:type=>"password", :required => true, :name => 'password', :placeholder => 'password', :autocomplete => 'off'}
+
+    .field
+      %input#userurl{:type=>"text", :required => true, :name => 'users[userurl]', :placeholder => 'Your URL', :autocomplete => 'off'}
+    
+    %button{:type=>"submit"} Create

@@ -100,9 +100,9 @@ end
 
 
 #signup / login
-get '/signup' do
-  @body_class = 'signup'
-  haml :signup
+get '/login' do
+  @body_class = 'login'
+  haml :login
 end
 
 post '/signup' do
@@ -118,9 +118,7 @@ post '/signup' do
   end
 end
 
-get '/login' do
-  haml :login
-end
+
 
 post '/login' do
   @body_class = 'login'
@@ -223,7 +221,7 @@ post '/add-feed' do
   end
 
   if @url.save
-    redirect '/#saved'
+    redirect '/preferences#saved'
   else
     'Oops, something went wrong'
   end
