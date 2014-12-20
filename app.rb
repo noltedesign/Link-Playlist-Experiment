@@ -26,6 +26,8 @@ class Feed < ActiveRecord::Base
   belongs_to :user 
   has_many :feed_items, dependent: :destroy, :inverse_of => :feed
   
+  serialize :feed_categories
+  
   def pinterest?
     feed_type == 'pinterest'
   end
@@ -244,6 +246,41 @@ get '/admin' do
   end
 
 end
+
+
+#Add Global Feed
+
+post '/add-global' do
+  
+  @url = Feed.new(params[:urls])
+  
+  @feed_top = Feedjira::Feed.fetch_and_parse @url.link
+  
+  @url['feed_title'] = @feed_top.title
+  @url['feed_link'] = @feed_top.url
+  @url.save
+  
+  @feed_top.entries.first(80).each do |entry|
+    
+    @entry = FeedItem.new
+    @entry.feed = @url
+    @entry['title'] = entry.title
+    @entry['summary'] = entry.summary
+    @entry['item_url'] = entry.url
+    @entry['published_on'] = entry.published
+    @entry['guid'] = entry.id
+    
+    @entry.save
+    
+  end
+
+  if @url.save
+    redirect '/admin'
+  else
+    'Oops, something went wrong'
+  end
+end
+
 
 
 

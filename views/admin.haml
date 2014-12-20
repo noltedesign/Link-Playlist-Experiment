@@ -1,3 +1,45 @@
 .cell.feed
-  %h4 Add Sitewide feeds
+  %h4 Add Site feeds
+  
+  %form.addfeed_form{:method=>"post", :action=>"/add-global"}
+    %label Add Feed
+    %input#addfeed{:type=>"text", :required => true, :name => 'urls[link]', :placeholder => 'RSS URL', :class=>"square"}
+  
+    %br
+    %br
+    %br
+  
+    %ul.checkbox
+      %li
+        %input.checkbox{:type=>"checkbox", :name => 'urls[feed_categories][]', :value => 'main'} Main
+      %li
+        %input.checkbox{:type=>"checkbox", :name => 'urls[feed_categories][]', :value => 'tech'} Tech
+      %li
+        %input.checkbox{:type=>"checkbox", :name => 'urls[feed_categories][]', :value => 'design'} Design
+      %li
+        %input.checkbox{:type=>"checkbox", :name => 'urls[feed_categories][]', :value => 'design'} Entertainment
+      %li
+        %input.checkbox{:type=>"checkbox", :name => 'urls[feed_categories][]', :value => 'design'} Politics
+    
+    %br
+    
+    %input.feedtype{:type=>"hidden", :name => 'urls[feed_type]', :value => 'global' }
+    
+    %button{:type=>"submit"} +
+
+.cell.feed 
+  %h4 Main
+  
+.cell.feed 
+  %h4 Tech
+  
+.cell.feed 
+  %h4 Design
+  
+.cell.feed 
+  %h4 Entertainment
+  
+.cell.feed 
+  %h4 Politics
+  
   
