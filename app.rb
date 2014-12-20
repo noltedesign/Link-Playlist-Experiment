@@ -12,7 +12,6 @@ require './config/environment' #database config
 require './config/sass' #Configure Sass and Compass
 
 
-
 set :environment, :development
 
 class User < ActiveRecord::Base
@@ -34,7 +33,11 @@ class Feed < ActiveRecord::Base
   def dribbble?
     feed_type == 'dribbble'
   end
-  
+end
+
+class Feed_relation < ActiveRecord::Base
+  has_many :feeds
+  has_many :users
 end
 
 class FeedItem < ActiveRecord::Base
@@ -44,7 +47,6 @@ class FeedItem < ActiveRecord::Base
   def saved_by_user?
     saved_items.any?
   end
-  
 end
 
 class SavedItem < ActiveRecord::Base
@@ -228,6 +230,23 @@ post '/add-feed' do
 end
 
 
+#admin
+
+get '/admin' do
+  @admin = User.find_by(email: 'noltedesign@gmail.com')
+  
+  @adminid = session[:loggedID]
+  
+  if @adminid == @admin.id
+    haml :admin
+  else
+    redirect '/'
+  end
+
+end
+
+
+
 
 #User Feed
 get '/:name' do |n|
@@ -255,3 +274,6 @@ delete '/item/:id' do
   @togo = SavedItem.find_by_id(params[:id])
   @togo.destroy
 end
+
+
+
