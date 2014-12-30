@@ -235,9 +235,12 @@ end
 #admin
 
 get '/admin' do
+  @body_class = 'admin'
   @admin = User.find_by(email: 'noltedesign@gmail.com')
   
   @adminid = session[:loggedID]
+  
+  @adminfeeds = Feed.where(feed_type: 'global')
   
   if @adminid == @admin.id
     haml :admin
@@ -275,7 +278,7 @@ post '/add-global' do
   end
 
   if @url.save
-    redirect '/admin'
+    redirect '/admin#success'
   else
     'Oops, something went wrong'
   end

@@ -17,9 +17,9 @@
       %li
         %input.checkbox{:type=>"checkbox", :name => 'urls[feed_categories][]', :value => 'design'} Design
       %li
-        %input.checkbox{:type=>"checkbox", :name => 'urls[feed_categories][]', :value => 'design'} Entertainment
+        %input.checkbox{:type=>"checkbox", :name => 'urls[feed_categories][]', :value => 'entertainment'} Entertainment
       %li
-        %input.checkbox{:type=>"checkbox", :name => 'urls[feed_categories][]', :value => 'design'} Politics
+        %input.checkbox{:type=>"checkbox", :name => 'urls[feed_categories][]', :value => 'politics'} Politics
     
     %br
     
@@ -30,16 +30,47 @@
 .cell.feed 
   %h4 Main
   
+  %ul.global-feeds
+    -@adminfeeds.each do |feedin|
+      -if feedin.feed_categories.include? 'main'    
+        %li{ :data => {:id => feedin.id} }
+          =feedin.feed_title
+
 .cell.feed 
   %h4 Tech
+
+  %ul.global-feeds
+    -@adminfeeds.each do |feedin|
+      -if feedin.feed_categories.include? 'tech'    
+        %li{ :data => {:id => feedin.id} }
+          =feedin.feed_title
+
   
 .cell.feed 
   %h4 Design
   
+  %ul.global-feeds
+    -@adminfeeds.each do |feedin|
+      -if feedin.feed_categories.include? 'design'    
+        %li{ :data => {:id => feedin.id} }
+          =feedin.feed_title
+  
 .cell.feed 
   %h4 Entertainment
   
+  %ul.global-feeds
+    -@adminfeeds.each do |feedin|
+      -if feedin.feed_categories.include? 'entertainment'    
+        %li{ :data => {:id => feedin.id} }
+          =feedin.feed_title
+  
 .cell.feed 
   %h4 Politics
+  
+  %ul.global-feeds
+    -@adminfeeds.each do |feedin|
+      -if feedin.feed_categories.include? 'politics'    
+        %li{ :data => {:id => feedin.id} }
+          =feedin.feed_title
   
   

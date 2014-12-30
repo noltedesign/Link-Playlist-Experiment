@@ -1,6 +1,6 @@
-.preferences #content {
+.preferences #content, .admin #content {
   
-  #user-feeds {
+  #user-feeds, .global-feeds {
     li {
       background:$gray20;
       border-bottom:none;
