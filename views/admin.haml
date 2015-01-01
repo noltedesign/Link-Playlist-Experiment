@@ -37,3 +37,8 @@
   .cell.feed
     %h5.cat-title
       =cat.category_name
+
+    %ul.global-feeds
+      - FeedCategorization.where(category_id: cat.id).each do |catz|
+        %li      
+          =Feed.find_by_id(catz.feed_id).feed_title
