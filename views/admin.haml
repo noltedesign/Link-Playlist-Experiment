@@ -31,3 +31,9 @@
     %input#addcat{:type=>"text", :required => true, :name => 'category_name', :placeholder => 'Category Name', :class=>"square"}
     
     %button{:type=>"submit", :class=>"square"} +
+    
+
+-FeedCategory.all.each do |cat|
+  .cell.feed
+    %h5.cat-title
+      =cat.category_name
