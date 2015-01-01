@@ -1,9 +1,9 @@
 -@userfeed.feeds.each do |feedin|  
   %div.cell.feed
     %h5
-      =feedin.feed_title
       -if feedin.feed_type == "pinterest"
-        's Pinterest
+        %img{:src => "/img/pinterest.svg", :alt => "pinterest", :class => "pinterest-logo"} 
+      =feedin.feed_title
       %span
         (
         =feedin.feed_items.count

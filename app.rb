@@ -25,6 +25,8 @@ end
 class Feed < ActiveRecord::Base
   belongs_to :user 
   has_many :feed_items, dependent: :destroy, :inverse_of => :feed
+  has_many :feed_categorization
+  has_many :feed_categories, through: :feed_categorization
   
   serialize :feed_categories
   
@@ -37,9 +39,13 @@ class Feed < ActiveRecord::Base
   end
 end
 
-class Feed_relation < ActiveRecord::Base
-  has_many :feeds
-  has_many :users
+class FeedCategory < ActiveRecord::Base
+  belongs_to :feed
+end
+
+class FeedCategorization < ActiveRecord::Base
+  belongs_to :feed
+  belongs_to :feed_categories
 end
 
 class FeedItem < ActiveRecord::Base
@@ -49,6 +55,11 @@ class FeedItem < ActiveRecord::Base
   def saved_by_user?
     saved_items.any?
   end
+end
+
+class UserFeed < ActiveRecord::Base
+  has_many :feeds
+  has_many :users
 end
 
 class SavedItem < ActiveRecord::Base
@@ -95,10 +106,14 @@ end
 # Index
 get '/' do
   @body_class = 'home'
-  @listu = User.order("created_at DESC")
   
   #make homepage my list
   @userfeed = User.find_by_id(21) 
+  
+  @mainfeeds = Feed.where(feed_type: 'global').where(feed_categories: ['main'])
+  
+  #@mainfeeds = Feed.where("feed_type='global' AND feed_categories = ['main']")
+  
   haml :index
 end
 
@@ -236,18 +251,15 @@ end
 
 get '/admin' do
   @body_class = 'admin'
+  
   @admin = User.find_by(email: 'noltedesign@gmail.com')
-  
   @adminid = session[:loggedID]
-  
-  @adminfeeds = Feed.where(feed_type: 'global')
   
   if @adminid == @admin.id
     haml :admin
   else
     redirect '/'
   end
-
 end
 
 
@@ -257,11 +269,20 @@ post '/add-global' do
   
   @url = Feed.new(params[:urls])
   
+  @categories =  params[:feed_categorization]['category_id']
+  
   @feed_top = Feedjira::Feed.fetch_and_parse @url.link
   
   @url['feed_title'] = @feed_top.title
   @url['feed_link'] = @feed_top.url
   @url.save
+  
+  @categories.each do |cat|
+    @cat_link = FeedCategorization.new
+    @cat_link['feed_id'] = @url.id
+    @cat_link['category_id'] = cat
+    @cat_link.save
+  end
   
   @feed_top.entries.first(80).each do |entry|
     
@@ -284,7 +305,18 @@ post '/add-global' do
   end
 end
 
+#Add Categories
 
+post '/add-feed-category' do
+  @cat = FeedCategory.new
+  @cat['category_name'] = params[:category_name]
+
+  if @cat.save
+    redirect '/admin#success'
+  else
+    'Oops, something went wrong'
+  end
+end
 
 
 

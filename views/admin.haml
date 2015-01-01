@@ -2,24 +2,19 @@
   %h4 Add Site feeds
   
   %form.addfeed_form{:method=>"post", :action=>"/add-global"}
-    %label Add Feed
-    %input#addfeed{:type=>"text", :required => true, :name => 'urls[link]', :placeholder => 'RSS URL', :class=>"square"}
+    %label Add Sitewide Feed
+    %input#addfeed{:type=>"text", :required => true, :name => 'urls[link]', :placeholder => 'RSS URL'}
   
     %br
     %br
     %br
   
     %ul.checkbox
-      %li
-        %input.checkbox{:type=>"checkbox", :name => 'urls[feed_categories][]', :value => 'main'} Main
-      %li
-        %input.checkbox{:type=>"checkbox", :name => 'urls[feed_categories][]', :value => 'tech'} Tech
-      %li
-        %input.checkbox{:type=>"checkbox", :name => 'urls[feed_categories][]', :value => 'design'} Design
-      %li
-        %input.checkbox{:type=>"checkbox", :name => 'urls[feed_categories][]', :value => 'entertainment'} Entertainment
-      %li
-        %input.checkbox{:type=>"checkbox", :name => 'urls[feed_categories][]', :value => 'politics'} Politics
+      -FeedCategory.all.each do |cat| 
+        %li
+          %input.checkbox{:type=>"checkbox", :name => 'feed_categorization[category_id][]', :value => cat.id, :id => cat.category_name }
+          %label{:for => cat.category_name }
+            =cat.category_name
     
     %br
     
@@ -27,50 +22,12 @@
     
     %button{:type=>"submit"} +
 
-.cell.feed 
-  %h4 Main
-  
-  %ul.global-feeds
-    -@adminfeeds.each do |feedin|
-      -if feedin.feed_categories.include? 'main'    
-        %li{ :data => {:id => feedin.id} }
-          =feedin.feed_title
-
-.cell.feed 
-  %h4 Tech
-
-  %ul.global-feeds
-    -@adminfeeds.each do |feedin|
-      -if feedin.feed_categories.include? 'tech'    
-        %li{ :data => {:id => feedin.id} }
-          =feedin.feed_title
-
-  
-.cell.feed 
-  %h4 Design
-  
-  %ul.global-feeds
-    -@adminfeeds.each do |feedin|
-      -if feedin.feed_categories.include? 'design'    
-        %li{ :data => {:id => feedin.id} }
-          =feedin.feed_title
-  
-.cell.feed 
-  %h4 Entertainment
-  
-  %ul.global-feeds
-    -@adminfeeds.each do |feedin|
-      -if feedin.feed_categories.include? 'entertainment'    
-        %li{ :data => {:id => feedin.id} }
-          =feedin.feed_title
-  
-.cell.feed 
-  %h4 Politics
-  
-  %ul.global-feeds
-    -@adminfeeds.each do |feedin|
-      -if feedin.feed_categories.include? 'politics'    
-        %li{ :data => {:id => feedin.id} }
-          =feedin.feed_title
-  
-  
+    %br
+    %br
+    %br
+    
+  %form.addcategory_form{:method=>"post", :action=>"/add-feed-category"}
+    %label Add Category
+    %input#addcat{:type=>"text", :required => true, :name => 'category_name', :placeholder => 'Category Name', :class=>"square"}
+    
+    %button{:type=>"submit", :class=>"square"} +

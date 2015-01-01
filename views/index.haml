@@ -1,12 +1,10 @@
 =haml :'partials/intro'
         
         
--@userfeed.feeds.each do |feedin|  
+-@mainfeeds.each do |feedin|  
   %div.cell.feed
     %h5
       =feedin.feed_title
-      -if feedin.feed_type == "pinterest"
-        's Pinterest
       %span
         (
         =feedin.feed_items.count

@@ -83,6 +83,13 @@ body {
     
     h5 {
       margin-bottom:.5rem;
+      img {
+        opacity:.3;
+        width:1rem;
+        height:auto;
+        display:inline-block;
+        vertical-align:middle;
+      }
       span {
         font-size:.5rem;
         font-weight:bold;
