@@ -1,13 +1,2 @@
 =haml :'partials/intro'
-        
-        
--@mainfeeds.each do |feedin|  
-  %div.cell.feed
-    %h5
-      =feedin.feed_title
-      %span
-        (
-        =feedin.feed_items.count
-        )
-    
-    =haml :'partials/feed', :locals => {:feedin => feedin}
+

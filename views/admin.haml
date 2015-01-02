@@ -39,6 +39,8 @@
       =cat.category_name
 
     %ul.global-feeds
-      - FeedCategorization.where(category_id: cat.id).each do |catz|
-        %li      
-          =Feed.find_by_id(catz.feed_id).feed_title
+      - cat.feed_categorizations.order(category_order: :asc).each do |feed_categorization|
+        %li{ :data => {:id => feed_categorization.id} }      
+          =feed_categorization.feed.feed_title
+
+

@@ -25,8 +25,8 @@ end
 class Feed < ActiveRecord::Base
   belongs_to :user 
   has_many :feed_items, dependent: :destroy, :inverse_of => :feed
-  has_many :feed_categorization
-  has_many :feed_categories, through: :feed_categorization
+  has_many :feed_categorizations
+  has_many :feed_categories, through: :feed_categorizations
   
   serialize :feed_categories
   
@@ -40,7 +40,8 @@ class Feed < ActiveRecord::Base
 end
 
 class FeedCategory < ActiveRecord::Base
-  belongs_to :feed
+  has_many :feed_categorizations
+  has_many :feeds, through: :feed_categorizations
 end
 
 class FeedCategorization < ActiveRecord::Base
@@ -106,13 +107,6 @@ end
 # Index
 get '/' do
   @body_class = 'home'
-  
-  #make homepage my list
-  @userfeed = User.find_by_id(21) 
-  
-  @mainfeeds = Feed.where(feed_type: 'global').where(feed_categories: ['main'])
-  
-  #@mainfeeds = Feed.where("feed_type='global' AND feed_categories = ['main']")
   
   haml :index
 end
