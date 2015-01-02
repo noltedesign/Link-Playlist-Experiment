@@ -107,6 +107,7 @@ end
 # Index
 get '/' do
   @body_class = 'home'
+  @main_category = FeedCategory.find_by(category_name: 'main')
   
   haml :index
 end
