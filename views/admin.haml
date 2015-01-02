@@ -12,7 +12,7 @@
     %ul.checkbox
       -FeedCategory.all.each do |cat| 
         %li
-          %input.checkbox{:type=>"checkbox", :name => 'feed_categorization[category_id][]', :value => cat.id, :id => cat.category_name }
+          %input.checkbox{:type=>"checkbox", :name => 'feed_categorization[feed_category_id][]', :value => cat.id, :id => cat.category_name }
           %label{:for => cat.category_name }
             =cat.category_name
     

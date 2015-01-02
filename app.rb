@@ -264,7 +264,7 @@ post '/add-global' do
   
   @url = Feed.new(params[:urls])
   
-  @categories =  params[:feed_categorization]['category_id']
+  @categories =  params[:feed_categorization]['feed_category_id']
   
   @feed_top = Feedjira::Feed.fetch_and_parse @url.link
   
@@ -275,7 +275,7 @@ post '/add-global' do
   @categories.each do |cat|
     @cat_link = FeedCategorization.new
     @cat_link['feed_id'] = @url.id
-    @cat_link['category_id'] = cat
+    @cat_link['feed_category_id'] = cat
     @cat_link.save
   end
   
