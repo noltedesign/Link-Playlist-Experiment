@@ -13,13 +13,26 @@
     
   }
   
-  #trash {
+  #trash, .trash {
     background:$gray20;
-    height:100px;
+    height:75px;
     padding:.5rem .75rem;
     span {
       color:$gray40;
     }
   }
   
+}
+
+
+.admin {
+  .checkbox {
+    label {
+      text-transform:capitalize;
+    }
+  }
+  
+  .cat-title {
+    text-transform:capitalize;
+  }
 }

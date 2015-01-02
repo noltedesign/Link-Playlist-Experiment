@@ -313,6 +313,23 @@ post '/add-feed-category' do
   end
 end
 
+#Categories Order
+
+post '/save-admin-order' do
+  @feedorder = params['order']
+  @feedorder = @feedorder.first.split(",")
+    
+  @feedorder.each_with_index do |o, i|
+    toUpdate = FeedCategorization.find_by( id: o )
+    toUpdate.category_order = i
+    toUpdate.save
+  end
+  
+  redirect '/admin#success'
+  
+  #put "#{@feedorder}"
+end
+
 
 
 #User Feed

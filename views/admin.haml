@@ -1,3 +1,5 @@
+%script{:src => "/js/Sortable.min.js"}
+
 .cell.feed
   %h4 Add Site feeds
   
@@ -32,15 +34,43 @@
     
     %button{:type=>"submit", :class=>"square"} +
     
-
+    
 -FeedCategory.all.each do |cat|
   .cell.feed
     %h5.cat-title
       =cat.category_name
 
-    %ul.global-feeds
+    %ul.global-feeds{:id => "feed-cat-#{cat.id}"}
       - cat.feed_categorizations.order(category_order: :asc).each do |feed_categorization|
         %li{ :data => {:id => feed_categorization.id} }      
           =feed_categorization.feed.feed_title
+    
+    %form.admin-order{:method=>"post", :action=>"/save-admin-order", :class => "admin-order-#{cat.id}"}
+      %input.neworder{:type=>"hidden", :name => 'order[]', :value => '', :id=> "neworder-#{cat.id}"}
+      %button{:type=>"submit"} Update Playlist Order
+       
+    :javascript
+      
+      var form_id = ".admin-order-#{cat.id}"
+      
+      var el = document.getElementById('feed-cat-#{cat.id}');
+      new Sortable(el, { group: 'orderit' });
 
+      $(form_id).submit( function() {
 
+        var feedorder = [];
+        
+        $(this).siblings('.global-feeds').children('li').each(function( index ) {
+          feedorder.push( $(this).data( 'id' ) );
+        });
+        
+        $(this).children('.neworder').val( feedorder );
+
+        return true
+        
+        
+        
+      });
+
+       
+       
