@@ -1,9 +1,9 @@
 =haml :'partials/intro'
 
-
--@main_category.feeds.each do |feed|
+      
+-@main_category.each do |feed|
   .cell.feed
     %h5.cat-title
-      =feed.feed_title
+      =feed.feed.feed_title
 
-    =haml :'partials/feed', :locals => {:feedin => feed}
+    =haml :'partials/feed', :locals => {:feedin => feed.feed}
