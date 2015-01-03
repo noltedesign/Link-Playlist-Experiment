@@ -16,14 +16,19 @@ set :environment, :development
 
 class User < ActiveRecord::Base
   include BCrypt
-  
-  has_many :feeds, dependent: :destroy
+  has_many :user_feeds
+  has_many :feeds, through: :user_feeds
   has_many :feed_items, through: :feeds
-  has_many :saved_items, dependent: :destroy
+  has_many :saved_items
+end
+
+class UserFeed < ActiveRecord::Base
+  belongs_to :feed
+  belongs_to :user
 end
 
 class Feed < ActiveRecord::Base
-  belongs_to :user 
+  has_many :users, through: :user_feeds 
   has_many :feed_items, dependent: :destroy, :inverse_of => :feed
   has_many :feed_categorizations
   has_many :feed_categories, through: :feed_categorizations
@@ -56,11 +61,6 @@ class FeedItem < ActiveRecord::Base
   def saved_by_user?
     saved_items.any?
   end
-end
-
-class UserFeed < ActiveRecord::Base
-  has_many :feeds
-  has_many :users
 end
 
 class SavedItem < ActiveRecord::Base
@@ -163,7 +163,7 @@ end
 #Preferences
 get '/preferences' do
   @body_class = 'preferences'
-  @current_feed_order = current_user.feeds(:order => 'order')
+  @current_feed_order = current_user.feeds
   
   if loggedin?
     haml :preferences
@@ -214,31 +214,37 @@ post '/add-feed' do
     @url.link = "https://dribbble.com/#{@url.link}/shots/following.rss"
   end
   
-  @feed_top = Feedjira::Feed.fetch_and_parse @url.link
+  if Feed.exists?(link: @url.link)
+    
+    redirect '/preferences#nope'
   
-  @url['feed_title'] = @feed_top.title
-  @url['feed_link'] = @feed_top.url
-  @url.save
-  
-  @feed_top.entries.first(80).each do |entry|
-    
-    @entry = FeedItem.new
-    @entry.feed = @url
-    @entry['title'] = entry.title
-    @entry['summary'] = entry.summary
-    @entry['item_url'] = entry.url
-    @entry['published_on'] = entry.published
-    @entry['guid'] = entry.id
-    
-    @entry.save
-    
-  end
-
-  if @url.save
-    redirect '/preferences#saved'
   else
-    'Oops, something went wrong'
+    @feed_top = Feedjira::Feed.fetch_and_parse @url.link
+    
+    @url['feed_title'] = @feed_top.title
+    @url['feed_link'] = @feed_top.url
+    @url.save
+    
+    @feed_top.entries.first(80).each do |entry|
+      @entry = FeedItem.new
+      @entry.feed = @url
+      @entry['title'] = entry.title
+      @entry['summary'] = entry.summary
+      @entry['item_url'] = entry.url
+      @entry['published_on'] = entry.published
+      @entry['guid'] = entry.id
+      
+      @entry.save
+    end
+  
+    if @url.save
+      redirect '/preferences#saved'
+    else
+      'Oops, something went wrong'
+    end
+
   end
+  
 end
 
 
