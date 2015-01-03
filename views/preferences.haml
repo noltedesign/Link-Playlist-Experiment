@@ -15,7 +15,7 @@
     %label Add Feed
     %input#addfeed{:type=>"text", :required => true, :name => 'urls[link]', :placeholder => 'RSS URL', :class=>"square"}
   
-    %input#userid{:type=>"hidden", :name => 'urls[user_id]', :value => current_user.id }
+    %input#userid{:type=>"hidden", :name => 'user_id', :value => current_user.id }
     
     %button{:type=>"submit", :class=>"square"} +
   
@@ -23,7 +23,7 @@
     %label Add Pinterest User
     %input.pinname{:type=>"text", :required => true, :name => 'urls[link]', :placeholder => 'Pinterest Username', :class=>"square"}
     
-    %input#useridP{:type=>"hidden", :name => 'urls[user_id]', :value => current_user.id }
+    %input#useridP{:type=>"hidden", :name => 'user_id', :value => current_user.id }
     %input.feedtype{:type=>"hidden", :name => 'urls[feed_type]', :value => 'pinterest' }
     
     %button{:type=>"submit", :class=>"square"} +
@@ -32,7 +32,7 @@
     %label Add your Dribbble feed
     %input.pinname{:type=>"text", :required => true, :name => 'urls[link]', :placeholder => 'Your Dribbble Username', :class=>"square"}
     
-    %input#useridP{:type=>"hidden", :name => 'urls[user_id]', :value => current_user.id }
+    %input#useridP{:type=>"hidden", :name => 'user_id', :value => current_user.id }
     %input.feedtype{:type=>"hidden", :name => 'urls[feed_type]', :value => 'dribbble' }
     
     %button{:type=>"submit", :class=>"square"} +
@@ -45,7 +45,7 @@
   %ul#user-feeds
     - @current_feed_order.each do |feeditem|
       %li{ :data => {:id => feeditem.id} }
-        =feeditem.feed_title
+        =feeditem.feed.feed_title
   
   %div#trash      
     %span Drag Here to delete feed
@@ -53,13 +53,10 @@
   %form.playlistorder{:method=>"post", :action=>"/save-order"}
     
     %input#neworder{:type=>"hidden", :name => 'order[]', :value => '' }
-    
     %input#trashit{:type=>"hidden", :name => 'trash[]', :value => '' }
-    
     
     %button{:type=>"submit"} Update Playlist Order
      
-
 
 %script{:src => "/js/Sortable.min.js"}
 :javascript

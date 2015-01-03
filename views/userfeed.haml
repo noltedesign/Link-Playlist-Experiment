@@ -1,12 +1,12 @@
--@userfeed.feeds.each do |feedin|  
+-@userfeed.user_feeds.order(feed_order: :asc).each do |feedin|  
   %div.cell.feed
     %h5
-      -if feedin.feed_type == "pinterest"
+      -if feedin.feed.feed_type == "pinterest"
         %img{:src => "/img/pinterest.svg", :alt => "pinterest", :class => "pinterest-logo"} 
-      =feedin.feed_title
+      =feedin.feed.feed_title
       %span
         (
-        =feedin.feed_items.count
+        =feedin.feed.feed_items.count
         )
     
-    =haml :'partials/feed', :locals => {:feedin => feedin}
+    =haml :'partials/feed', :locals => {:feedin => feedin.feed}

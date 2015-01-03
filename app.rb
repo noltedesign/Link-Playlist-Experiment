@@ -132,8 +132,6 @@ post '/signup' do
   end
 end
 
-
-
 post '/login' do
   @body_class = 'login'
    
@@ -160,10 +158,12 @@ get '/logout' do
   redirect '/'
 end
 
+
+
 #Preferences
 get '/preferences' do
   @body_class = 'preferences'
-  @current_feed_order = current_user.feeds
+  @current_feed_order = current_user.user_feeds
   
   if loggedin?
     haml :preferences
@@ -172,6 +172,9 @@ get '/preferences' do
   end
 end
 
+
+
+#Update Feed Order
 post '/save-order' do
   @feedorder = params['order']
   @feedorder = @feedorder.first.split(",")
@@ -180,19 +183,20 @@ post '/save-order' do
   @trashit = @trashit.first.split(",")
   
   @feedorder.each_with_index do |o, i|
-    toUpdate = Feed.find_by( id: o )
-    toUpdate.order = i
+    toUpdate = UserFeed.find_by( id: o )
+    toUpdate.feed_order = i
     toUpdate.save
   end
   
   @trashit.each do |t|
-    toTrash = Feed.find_by( id: t )
+    toTrash = UserFeed.find_by( id: t )
     toTrash.destroy
   end
   
   redirect '/preferences#success'
 end
 
+#Delete Account
 post '/delete-account' do
   User.find(params[:user_id]).destroy()
   session.clear
@@ -200,11 +204,12 @@ post '/delete-account' do
 end
 
 
-#Add Feed
 
+#Add Feed
 post '/add-feed' do
   
   @url = Feed.new(params[:urls])
+  @user = params[:user_id]
   
   if @url.feed_type == 'pinterest'
     @url.link = "http://pinterest.com/#{@url.link}/feed.rss"
@@ -214,8 +219,15 @@ post '/add-feed' do
     @url.link = "https://dribbble.com/#{@url.link}/shots/following.rss"
   end
   
-  if Feed.exists?(link: @url.link)
+  @feedexists = Feed.find_by(link: @url.link)
+  
+  if @feedexists.present?
     
+    @newlink = UserFeed.new
+    
+    @newlink['feed_id'] = @feedexists.id
+    @newlink['user_id'] = @user
+    @newlink.save
     redirect '/preferences#nope'
   
   else
@@ -248,8 +260,8 @@ post '/add-feed' do
 end
 
 
-#admin
 
+#admin
 get '/admin' do
   @body_class = 'admin'
   
@@ -264,8 +276,8 @@ get '/admin' do
 end
 
 
-#Add Global Feed
 
+#Add Global Feed
 post '/add-global' do
   
   @url = Feed.new(params[:urls])
@@ -306,8 +318,9 @@ post '/add-global' do
   end
 end
 
-#Add Categories
 
+
+#Add Categories
 post '/add-feed-category' do
   @cat = FeedCategory.new
   @cat['category_name'] = params[:category_name]
@@ -319,8 +332,9 @@ post '/add-feed-category' do
   end
 end
 
-#Categories Order
 
+
+#Categories Order
 post '/save-admin-order' do
   @feedorder = params['order']
   @feedorder = @feedorder.first.split(",")
@@ -332,8 +346,6 @@ post '/save-admin-order' do
   end
   
   redirect '/admin#success'
-  
-  #put "#{@feedorder}"
 end
 
 
