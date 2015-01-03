@@ -237,6 +237,11 @@ post '/add-feed' do
     @url['feed_link'] = @feed_top.url
     @url.save
     
+    @newlink = UserFeed.new
+    @newlink['feed_id'] = @url.id
+    @newlink['user_id'] = @user
+    @newlink.save
+    
     @feed_top.entries.first(80).each do |entry|
       @entry = FeedItem.new
       @entry.feed = @url
