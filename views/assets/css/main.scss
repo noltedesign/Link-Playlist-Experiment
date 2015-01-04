@@ -89,6 +89,10 @@ body {
         height:auto;
         display:inline-block;
         vertical-align:middle;
+        &.dribbble-logo {
+          width:1.2rem;
+          vertical-align:sub;  
+        }
       }
       span {
         font-size:.5rem;

@@ -3,6 +3,8 @@
     %h5
       -if feedin.feed.feed_type == "pinterest"
         %img{:src => "/img/pinterest.svg", :alt => "pinterest", :class => "pinterest-logo"} 
+      -if feedin.feed.feed_type == "dribbble"
+        %img{:src => "/img/dribbble.svg", :alt => "pinterest", :class => "dribbble-logo"} 
       =feedin.feed.feed_title
       %span
         (
