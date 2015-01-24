@@ -104,13 +104,48 @@ end
 
 
 
-# Index
+# Index & Categories
+
+#main
 get '/' do
-  @body_class = 'home'
+  @body_class = 'home main'
   @main_category = FeedCategory.find_by(category_name: 'main').feed_categorizations.order(category_order: :asc)
   
   haml :index
 end
+
+#tech
+get '/tech' do
+  @body_class = 'home tech'
+  @main_category = FeedCategory.find_by(category_name: 'tech').feed_categorizations.order(category_order: :asc)
+  
+  haml :index
+end
+
+#Design
+get '/design' do
+  @body_class = 'home design'
+  @main_category = FeedCategory.find_by(category_name: 'design').feed_categorizations.order(category_order: :asc)
+  
+  haml :index
+end
+
+#Entertainment
+get '/entertainment' do
+  @body_class = 'home entertainment'
+  @main_category = FeedCategory.find_by(category_name: 'entertainment').feed_categorizations.order(category_order: :asc)
+  
+  haml :index
+end
+
+#polititcs
+get '/politics' do
+  @body_class = 'home politics'
+  @main_category = FeedCategory.find_by(category_name: 'politics').feed_categorizations.order(category_order: :asc)
+  
+  haml :index
+end
+
 
 
 #signup / login

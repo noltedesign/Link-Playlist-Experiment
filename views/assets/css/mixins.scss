@@ -4,6 +4,8 @@ $gray35: hsl(0,0,35);
 $gray28: hsl(0,0,28);
 $gray25: hsl(0,0,25);
 $gray20: hsl(0,0,20);
+$gray19: hsl(0,0,19);
+$gray18: hsl(0,0,18);
 $gray17: hsl(0,0,17);
 $gray15: hsl(0,0,15);
 $gray13: hsl(0,0,13);
@@ -14,6 +16,7 @@ $blue: #9ccded;
 $red: #f15a3b;
 
 $headerheight: 35px;
+$strip-width: 50px;
 
 $font1: 'Helvetica Neue', Arial, Helvetica, sans-serif;
 
@@ -60,3 +63,22 @@ $small-min: "only screen and (max-width: #{47.938rem})"; // > 768px
 
 $smaller-min: "only screen and (max-width: #{39.938rem})"; // >640px
 $mobile-min: "only screen and (max-width: #{29.938rem})"; // >480px
+
+
+
+// Flex Mixin
+
+@mixin flex($flexgrow, $flexshrink, $flexbasis) {
+  -webkit-flex-grow: $flexgrow;
+  -webkit-flex-shrink: $flexshrink;
+  -webkit-flex-basis: $flexbasis;
+  -ms-flex: $flexgrow $flexshrink $flexbasis;
+  flex: $flexgrow $flexshrink $flexbasis;
+}
+
+@mixin displayflex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}

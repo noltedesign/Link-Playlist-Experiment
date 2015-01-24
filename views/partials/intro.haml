@@ -1,7 +1,18 @@
 .cell.feed.intro
+  .category-strip.column
+    %a.category-link.main-link.cell{:title => 'Home Feed', :href => '/' }
+    
+    %a.category-link.tech-link.cell{:title => 'Tech Feed', :href => '/tech' }
+    
+    %a.category-link.design-link.cell{:title => 'Design Feed', :href => '/design' }
+    
+    %a.category-link.entertainment-link.cell{:title => 'Entertainment Feed', :href => '/entertainment' }
+    
+    %a.category-link.politics-link.cell{:title => 'Politics Feed', :href => '/politics' }
+  
   .text-center
     %img{:src => "/img/feed-zombie.png", :alt => "Feed Zombie", :class => "logo"}
-    %h4 Feed Zombie
+
   %p
     A test in aggregation.
   %p
