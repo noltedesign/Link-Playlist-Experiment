@@ -32,7 +32,7 @@ input[type='text'], input[type='email'], input[type='password']  {
   }
 }
 
-button {
+button, .button {
   display:inline-block;
   position:relative;
   border:none;

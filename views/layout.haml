@@ -8,25 +8,23 @@
     %script{:src => "/js/scripts.js"}
 
   %body{:class => "#{@body_class}"}
-    %header  
-      .saved-alert Saved
+        
+    .cell.category-strip.column
+      %a.category-link.main-link.cell{:title => 'Home Feed', :href => '/' }
       
-      %a{:title => 'home', :href => '/'} Feed Zombie
-
-      %ul.menu
-        - if loggedin?
-          %li 
-            %a{:title => 'Add Feed', :href => current_user.userurl } Your Playlist
-          %li
-            %a{:title => 'Preferences', :href => '/preferences'} Manage Feeds
-          %li
-            %a{:title => 'Show Saved', :href => '#', :class => 'show-saved'} Saved
-          %li 
-            %a{:title => 'log out', :href => '/logout'} Logout
-        - else
-          %li
-            %a{:title => 'sign up', :href => '/login'} Login/Signup
-    
+      %a.category-link.tech-link.cell{:title => 'Tech Feed', :href => '/tech' }
+      
+      %a.category-link.design-link.cell{:title => 'Design Feed', :href => '/design' }
+      
+      %a.category-link.entertainment-link.cell{:title => 'Entertainment Feed', :href => '/entertainment' }
+      
+      %a.category-link.politics-link.cell{:title => 'Politics Feed', :href => '/politics' }
+      
+      - if loggedin?
+        %a.category-link.cell{:title => 'Add Feed', :href => current_user.userurl }
+        %a.cell.fit{:title => 'Preferences', :href => '/preferences'}
+        %a.cell.fit{:title => 'Show Saved', :href => '#', :class => 'show-saved'}
+        
     #content.row.align-stretch.hold.nowrap.justify-start
       
       - if loggedin?
@@ -36,6 +34,6 @@
               %li
                 %span.delete-item{ :data => {:id => entry.id} } delete
                 %a{:title => remove_html_tags( entry.feed_item.summary ), :href => entry.feed_item.item_url, :target => 'blank', :class => 'tooltip'}
-                  =entry.feed_item.title
+                  =entry.feed_item.title    
                   
       =yield

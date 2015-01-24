@@ -2,8 +2,10 @@
 
       
 -@main_category.each do |feed|
-  .cell.feed
-    %h5.cat-title
-      =feed.feed.feed_title
-
-    =haml :'partials/feed', :locals => {:feedin => feed.feed}
+  .cell.feed.column
+    .cell.fit.title
+      %h5.cat-title.cell
+        =feed.feed.feed_title
+    
+    .cell.feed-scroll
+      =haml :'partials/feed', :locals => {:feedin => feed.feed}

@@ -1,6 +1,7 @@
 $gray50: hsl(0,0,50);
 $gray40: hsl(0,0,40);
 $gray35: hsl(0,0,35);
+$gray30: hsl(0,0,30);
 $gray28: hsl(0,0,28);
 $gray25: hsl(0,0,25);
 $gray20: hsl(0,0,20);
@@ -20,32 +21,18 @@ $strip-width: 50px;
 
 $font1: 'Helvetica Neue', Arial, Helvetica, sans-serif;
 
-@mixin scrollbar {
-  &::-webkit-scrollbar {background: $gray17;width:6px;}
-  &::-webkit-scrollbar-thumb {background: $gray20; max-height:100px;}
-  &::-webkit-scrollbar-corner {background: $gray17;}
+@mixin scrollbar($bar, $track) {
+  &::-webkit-scrollbar {background: $bar;width:6px;}
+  &::-webkit-scrollbar-thumb {background: $track;}
+  &::-webkit-scrollbar-corner {background: $bar;}
   
-  scrollbar-base-color: $gray20;
-  scrollbar-3dlight-color: $gray20;
-  scrollbar-highlight-color: $gray20;
-  scrollbar-track-color: $gray17;
-  scrollbar-arrow-color: $gray20;
-  scrollbar-shadow-color: $gray20;
-  scrollbar-dark-shadow-color: $gray20;
-}
-
-@mixin scrollbar-main {
-  &::-webkit-scrollbar {background: $gray25;}
-  &::-webkit-scrollbar-thumb {background: $gray35;}
-  &::-webkit-scrollbar-corner {background: $gray25;}
-  
-  scrollbar-base-color: $gray35;
-  scrollbar-3dlight-color: $gray35;
-  scrollbar-highlight-color: $gray35;
-  scrollbar-track-color: $gray25;
-  scrollbar-arrow-color: $gray35;
-  scrollbar-shadow-color: $gray35;
-  scrollbar-dark-shadow-color: $gray35;
+  scrollbar-base-color: $track;
+  scrollbar-3dlight-color: $track;
+  scrollbar-highlight-color: $track;
+  scrollbar-track-color: $bar;
+  scrollbar-arrow-color: $track;
+  scrollbar-shadow-color: $track;
+  scrollbar-dark-shadow-color: $track;  
 }
 
 

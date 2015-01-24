@@ -2,6 +2,13 @@
   %h5.feed-title 
     Welcome
     =current_user.email
+  
+  %a.button{:title => 'log out', :href => '/logout'} Logout
+
+  
+  %br
+  %br
+  %br
       
   %form.addfeed_form{:method=>"post", :action=>"/delete-account"}
     %input#userid{:type=>"hidden", :name => 'user_id', :value => current_user.id }
