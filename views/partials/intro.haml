@@ -1,23 +1,27 @@
-.cell.feed.intro
-  .text-center
-    %img{:src => "/img/feed-zombie.png", :alt => "Feed Zombie", :class => "logo"}
-
-  %p
-    A test in aggregation.
-  %p
-    This page is a clone of my feed, sing up to start cusotmizing yours!
-    
-    
-  %ul.menu
-    - if loggedin?
-      %li 
-        %a{:title => 'Add Feed', :href => current_user.userurl } Your Playlist
-      %li
-        %a{:title => 'Preferences', :href => '/preferences'} Manage Feeds
-      %li
-        %a{:title => 'Show Saved', :href => '#', :class => 'show-saved'} Saved
-      %li 
-        %a{:title => 'log out', :href => '/logout'} Logout
-    - else
-      %li
-        %a{:title => 'sign up', :href => '/login'} Login/Signup
+.cell.feed.intro.column
+  .cell.fit.title
+    %h5.cat-title.cell
+          
+  .cell.feed-scroll   
+    .text-center
+      %img{:src => "/img/feed-zombie.png", :alt => "Feed Zombie", :class => "logo"}
+  
+    %p
+      A test in aggregation.
+    %p
+      This page is a clone of my feed, sing up to start cusotmizing yours!
+      
+      
+    %ul.menu
+      - if loggedin?
+        %li 
+          %a{:title => 'Add Feed', :href => current_user.userurl } Your Playlist
+        %li
+          %a{:title => 'Preferences', :href => '/preferences'} Manage Feeds
+        %li
+          %a{:title => 'Show Saved', :href => '#', :class => 'show-saved'} Saved
+        %li 
+          %a{:title => 'log out', :href => '/logout'} Logout
+      - else
+        %li
+          %a{:title => 'sign up', :href => '/login'} Login/Signup

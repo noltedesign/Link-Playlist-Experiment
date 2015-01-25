@@ -86,9 +86,10 @@ body {
     @media #{$mobile-min} { @include flex(0,0,100%) };
     
     .title {
-      padding:.5rem 1.75rem;
+      padding:.5rem 1.75rem 0;
       background-color:rgba(255, 255, 255, 0.05);
       background-clip: border-box;
+      height:$titleheight;
       h5 {
         white-space:nowrap;
         text-overflow:ellipsis;
@@ -183,8 +184,7 @@ body {
     
     // Intro Pane
     &.intro {
-      display: block;
-      padding:1rem 1.75rem 3rem;
+
     }
     
     
@@ -214,7 +214,7 @@ body {
     vertical-align:top;
     border-bottom:3px solid $gray10;
     padding:0;
-    box-shadow: inset -6px 0px 14px -8px rgba(0, 0, 0, 0.4);
+    //box-shadow: inset -6px 0px 14px -8px rgba(0, 0, 0, 0.4);
     &:last-of-type {
       border-bottom:none;
     }
@@ -225,7 +225,7 @@ body {
 }
 
 
-.home.main #content a.cell.main-link, .home.tech #content a.cell.tech-link, .home.design #content a.cell.design-link, .home.entertainment #content a.cell.entertainment-link, .home.politics #content a.cell.politics-link {
+.home.main a.cell.main-link, .home.tech a.cell.tech-link, .home.design a.cell.design-link, .home.entertainment a.cell.entertainment-link, .home.politics a.cell.politics-link {
   background-color:$gray20;
   box-shadow:none;
 }
