@@ -5,12 +5,15 @@
   .cell.feed-scroll   
 
     %p
-      A test in aggregation.
-    %p
-      This page is a clone of my feed, sign up to start cusotmizing yours!
+      You can't kill the feed.
       
       
     %ul.menu
+    
+      - if loggedin?
+        %li 
+          %a{:title => 'Add Feed', :href => current_user.userurl } Your Playlist
+          
       %li
         %a.category-link.main-link{:title => 'Home Feed', :href => '/' } Home Feed
       
@@ -25,19 +28,15 @@
       
       %li
         %a.category-link.politics-link{:title => 'Politics Feed', :href => '/politics' } Politics
-    
-      - if loggedin?
-        %li 
-          %a{:title => 'Add Feed', :href => current_user.userurl } Your Playlist
         
-        / 
-          %li
-            %a{:title => 'Preferences', :href => '/preferences'} Manage Feeds
-          %li
-            %a{:title => 'Show Saved', :href => '#', :class => 'show-saved'} Saved
-          %li 
-            %a{:title => 'log out', :href => '/logout'} Logout
+      / 
+        %li
+          %a{:title => 'Preferences', :href => '/preferences'} Manage Feeds
+        %li
+          %a{:title => 'Show Saved', :href => '#', :class => 'show-saved'} Saved
+        %li 
+          %a{:title => 'log out', :href => '/logout'} Logout
             
-      - else
+      - if !loggedin?
         %li
           %a{:title => 'sign up', :href => '/login'} Login/Signup
