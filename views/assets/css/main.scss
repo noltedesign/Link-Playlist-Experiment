@@ -17,43 +17,11 @@ body {
   height:100%;
   overflow-y:hidden;
   
-  @include scrollbar($gray25, $gray30);
+  @include scrollbar($gray15, $gray25);
   
   a:link {text-decoration:none; color:#95bed8;}
   a:visited {color:$gray40;}
   a:active, a:hover {color:#f15a3b;}
-  
-  .saved-items-list {
-    position:fixed;
-    overflow:auto;
-    padding:1rem 1.75rem 3rem;
-    width:400px;
-    top:$headerheight;
-    bottom:0;
-    right:0;
-    background:$gray35;
-    opacity:0;
-    transition:all .45s ease-in-out;
-    z-index:3;
-    -webkit-transform: translate3d(410px,0,0);
-    -moz-transform: translate3d(410px,0,0);
-    -ms-transform: translate3d(410px,0,0);
-    -o-transform: translate3d(410px,0,0);
-    transform: translate3d(410px,0,0);
-    
-    @include scrollbar($gray25, $gray30);
-    
-    .save-item {display:none;}
-    .show-saved & {
-      -webkit-transform: translate3d(0,0,0);
-      -moz-transform: translate3d(0,0,0);
-      -ms-transform: translate3d(0,0,0);
-      -o-transform: translate3d(0,0,0);
-      transform: translate3d(0,0,0);
-      opacity:1;
-    }
-  }
-  
   
   .feed {
     background-attachment:scroll;
@@ -96,6 +64,7 @@ body {
         overflow:hidden;
         margin:0;
         padding:0;
+        opacity:.7;
         img {
           opacity:.3;
           width:1rem;
@@ -120,10 +89,7 @@ body {
       padding:1rem 1.75rem 3rem;
       overflow:auto;
     }
-    
-    
-    
-    
+
     
     ul {
       margin:0;
@@ -145,6 +111,7 @@ body {
           cursor:pointer;
         }
         a {
+          width:100%;
           padding-right:14px;
           display: inline-block;
         }
@@ -182,50 +149,106 @@ body {
       }
     }
     
-    // Intro Pane
-    &.intro {
-
-    }
-    
-    
   }
+  
+  .saved-items-list {
+    position:fixed;
+    overflow:auto;
+    width:100%;
+    max-width:400px;
+    top:0;
+    bottom:0;
+    left:$strip-width;
+    background:$gray35;
+    opacity:0;
+    transition:all .45s ease-in-out;
+    z-index:3;
+    -webkit-transform: translate3d(-100%,0,0);
+    -moz-transform: translate3d(-100%,0,0);
+    -ms-transform: translate3d(-100%,0,0);
+    -o-transform: translate3d(-100%,0,0);
+    transform: translate3d(-100%,0,0);
+    
+    @include scrollbar($gray25, $gray30);
+    
+    .save-item {display:none;}
+    .show-saved & {
+      -webkit-transform: translate3d(0,0,0);
+      -moz-transform: translate3d(0,0,0);
+      -ms-transform: translate3d(0,0,0);
+      -o-transform: translate3d(0,0,0);
+      transform: translate3d(0,0,0);
+      opacity:1;
+    }
+  }
+  
 }
 
 
 
 
-// Category Strip
+// Menu Strip
 
-.category-strip {
+.menu-strip {
   left:0;
   top:0;
   bottom:0;
   padding:0;
-  background-color:$gray05;
+  background-color:$gray30;
   width:$strip-width;
   position:absolute;
   @include displayflex;
   z-index:99;
+  box-shadow: 3px 0px 18px rgba(0, 0, 0, 0.25);
+  padding-bottom:20px;
+  
+  .logo-square {
+    width:$strip-width;
+    height:$titleheight;
+    padding:2px 0 0 6px;
+    background-color:$gray30;
+  }
+  
   a.cell {
     display:inline-block;
     width:$strip-width;
     height:$strip-width;
-    background-color:$gray15;
+    background-color:$gray30;
     vertical-align:top;
-    border-bottom:3px solid $gray10;
     padding:0;
-    //box-shadow: inset -6px 0px 14px -8px rgba(0, 0, 0, 0.4);
-    &:last-of-type {
-      border-bottom:none;
+    text-align:center;
+    line-height:$strip-width;
+    img {
+      display:inline-block;
+      width:60%;
+      height:auto;
+      vertical-align:middle;
+      opacity:.4;
+      transition:.2s ease-in;
     }
+
     &:hover {
-      background-color:$gray18;
+      background-color:$gray25;
+      img {
+        opacity:1;
+      }
     }
   }
 }
 
 
 .home.main a.cell.main-link, .home.tech a.cell.tech-link, .home.design a.cell.design-link, .home.entertainment a.cell.entertainment-link, .home.politics a.cell.politics-link {
-  background-color:$gray20;
+  background-color:$gray30;
   box-shadow:none;
+  &:hover {
+    background-color:$gray25;
+  }
+}
+
+// Menu 
+.menu {
+  a {
+    padding:0;
+    width:100%;
+  }
 }

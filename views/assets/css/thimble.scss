@@ -352,6 +352,7 @@ a:active, a:hover {color:$red;} /* SET */
     margin:0;
   }
 
+
   .hold .cell, .column .cell, .column-reverse .cell {
     -webkit-box-flex: 1;
     -webkit-flex: 1;
@@ -387,6 +388,13 @@ a:active, a:hover {color:$red;} /* SET */
     -moz-box-flex: none;
     -ms-flex: none;
     flex: none;
+  }
+
+    .cell.fit {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
   }
 
   
