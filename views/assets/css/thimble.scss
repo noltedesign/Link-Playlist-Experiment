@@ -109,9 +109,7 @@ ol {
 /* Links */
 a {
 	text-decoration:none;
-	transition:.2s linear;
-	-webkit-transition:.2s linear;
-	-moz-transition:.2s linear;
+	transition:$material;
 }
 a:link, a:visited {text-decoration:none; color:$blue;} /* SET */
 a:active, a:hover {color:$red;} /* SET */

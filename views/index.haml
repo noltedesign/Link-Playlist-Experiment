@@ -5,7 +5,8 @@
   .cell.feed.column
     .cell.fit.title
       %h5.cat-title.cell
-        =feed.feed.feed_title
+        %a{:title => feed.feed.feed_title, :href => feed.feed.feed_link, :class => 'feed-link'}
+          =feed.feed.feed_title
     
     .cell.feed-scroll
       =haml :'partials/feed', :locals => {:feedin => feed.feed}

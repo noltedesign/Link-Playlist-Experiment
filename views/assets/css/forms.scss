@@ -18,7 +18,7 @@ input[type='text'], input[type='email'], input[type='password']  {
   height:30px;
   padding:8px 12px;
   background:rgba(255, 255, 255, 0.15);
-  transition:all .2s ease-in-out;
+  transition:$material;
   color:white;
   position:relative;
   &.square {
@@ -41,7 +41,7 @@ button, .button {
   line-height:1;
   color:#fff;
   cursor:pointer;
-  transition: all .2s ease-in-out;
+  transition:$material;
   width:100%;
   margin:.25rem 0;
   &.square {
