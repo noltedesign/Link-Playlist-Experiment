@@ -30,12 +30,12 @@ a {
   .feed {
     background-attachment:scroll;
     .feed-scroll {
-      @include scrollbar($gray15, $gray20);
+      @include scrollbar($gray15, $gray25);
     }
     &:nth-child(even) {
-      background:$gray17;
+      // background:$gray17;
       .feed-scroll {
-        @include scrollbar($gray17, $gray20);
+        // @include scrollbar($gray17, $gray20);
       }
     }
   }
@@ -48,6 +48,8 @@ a {
     .home &, .feed-page & {
       @include displayflex;
       padding:0;
+      border-left:solid 2px $gray13;
+      border-right:solid 2px $gray13;
     }
       
     @include flex(0,0,20%);
@@ -162,7 +164,7 @@ a {
   .saved-items-list {
     position:fixed;
     overflow:auto;
-    width:100%;
+    width:calc( 100% - 50px );
     max-width:400px;
     top:0;
     bottom:0;
@@ -170,11 +172,16 @@ a {
     background:$gray35;
     transition:$material;
     z-index:3;
+    
+    border-left:none!important;
+    border-right:none!important;
+    
     -webkit-transform: translate3d(-100%,0,0);
     -moz-transform: translate3d(-100%,0,0);
     -ms-transform: translate3d(-100%,0,0);
     -o-transform: translate3d(-100%,0,0);
     transform: translate3d(-100%,0,0);
+    
     @include scrollbar($gray25, $gray30);
     
     .tooltipster-icon, ul li .delete-item {
