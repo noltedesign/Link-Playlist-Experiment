@@ -155,16 +155,30 @@ get '/login' do
 end
 
 post '/signup' do
-  
   @user = User.new(params[:users])
-  
   @user.password_hash = BCrypt::Password.create(params[:password])
   
-  if @user.save
-    redirect '/#success'
-  else
-    redirect '/#fail'
+  @errors = ''
+  
+  if User.find_by_email( @user.email )  
+    @errors += '<span>Email already exists</span>'
   end
+  
+  if User.find_by( userurl: @user.userurl ) 
+    @errors += '<span>URL already exists</span>'
+  end
+
+  if @errors.length > 1
+    @body_class = 'login'
+    haml :login
+  else
+    if @user.save
+      redirect '/#success'
+    else
+      redirect '/#fail'
+    end
+  end
+    
 end
 
 post '/login' do
@@ -173,7 +187,7 @@ post '/login' do
   @userlogemail = params[:email]
   @userlogpass = params[:password]
   
-  @loggeduser =User.find_by_email(@userlogemail)
+  @loggeduser = User.find_by_email(@userlogemail)
   
   @passhash = BCrypt::Password.new(@loggeduser.password_hash)
   

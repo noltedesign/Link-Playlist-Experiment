@@ -1,68 +1,75 @@
-.cell.feed
-  %h5.feed-title 
-    Welcome
-    =current_user.email
+.cell.feed.column
+  .cell.fit.title
+    %h5.cat-title.cell 
+      Welcome
+      =current_user.email
+          
+  .cell.feed-scroll   
+    %a{:title => 'log out', :href => '/logout'} Logout
   
-  %a{:title => 'log out', :href => '/logout'} Logout
-
-  
-  %br
-  %br
-  %br
+    
+    %br
+    %br
+    %br
+        
+    %form.addfeed_form{:method=>"post", :action=>"/delete-account"}
+      %input#userid{:type=>"hidden", :name => 'user_id', :value => current_user.id }
+      %button{:type=>"submit"} Delete My Account
       
-  %form.addfeed_form{:method=>"post", :action=>"/delete-account"}
-    %input#userid{:type=>"hidden", :name => 'user_id', :value => current_user.id }
-    %button{:type=>"submit"} Delete My Account
+        
+.cell.feed.column
+  .cell.fit.title
+    %h5.cat-title.cell 
+      Add Feed
+      
+  .cell.feed-scroll      
+    %form.addfeed_form{:method=>"post", :action=>"/add-feed"}
+      %label Add Feed
+      %input#addfeed{:type=>"text", :required => true, :name => 'urls[link]', :placeholder => 'RSS URL', :class=>"square"}
     
+      %input#userid{:type=>"hidden", :name => 'user_id', :value => current_user.id }
+      
+      %button{:type=>"submit", :class=>"square"} +
     
-.cell.feed.addfeed
-  %h5.feed-title Add Feeds
-  
-  %form.addfeed_form{:method=>"post", :action=>"/add-feed"}
-    %label Add Feed
-    %input#addfeed{:type=>"text", :required => true, :name => 'urls[link]', :placeholder => 'RSS URL', :class=>"square"}
-  
-    %input#userid{:type=>"hidden", :name => 'user_id', :value => current_user.id }
-    
-    %button{:type=>"submit", :class=>"square"} +
-  
-  %form.pinterest{:method=>"post", :action=>"/add-feed"}
-    %label Add Pinterest User
-    %input.pinname{:type=>"text", :required => true, :name => 'urls[link]', :placeholder => 'Pinterest Username', :class=>"square"}
-    
-    %input#useridP{:type=>"hidden", :name => 'user_id', :value => current_user.id }
-    %input.feedtype{:type=>"hidden", :name => 'urls[feed_type]', :value => 'pinterest' }
-    
-    %button{:type=>"submit", :class=>"square"} +
-    
-  %form.dribbble{:method=>"post", :action=>"/add-feed"}
-    %label Add your Dribbble feed
-    %input.pinname{:type=>"text", :required => true, :name => 'urls[link]', :placeholder => 'Your Dribbble Username', :class=>"square"}
-    
-    %input#useridP{:type=>"hidden", :name => 'user_id', :value => current_user.id }
-    %input.feedtype{:type=>"hidden", :name => 'urls[feed_type]', :value => 'dribbble' }
-    
-    %button{:type=>"submit", :class=>"square"} +
-  
+    %form.pinterest{:method=>"post", :action=>"/add-feed"}
+      %label Add Pinterest User
+      %input.pinname{:type=>"text", :required => true, :name => 'urls[link]', :placeholder => 'Pinterest Username', :class=>"square"}
+      
+      %input#useridP{:type=>"hidden", :name => 'user_id', :value => current_user.id }
+      %input.feedtype{:type=>"hidden", :name => 'urls[feed_type]', :value => 'pinterest' }
+      
+      %button{:type=>"submit", :class=>"square"} +
+      
+    %form.dribbble{:method=>"post", :action=>"/add-feed"}
+      %label Add your Dribbble feed
+      %input.pinname{:type=>"text", :required => true, :name => 'urls[link]', :placeholder => 'Your Dribbble Username', :class=>"square"}
+      
+      %input#useridP{:type=>"hidden", :name => 'user_id', :value => current_user.id }
+      %input.feedtype{:type=>"hidden", :name => 'urls[feed_type]', :value => 'dribbble' }
+      
+      %button{:type=>"submit", :class=>"square"} +
+      
 
   
-.cell.feed.order
-  %h5.feed-title Order Feeds
+.cell.feed.order.column
+  .cell.fit.title
+    %h5.cat-title.cell  Order Feeds
   
-  %ul#user-feeds
-    - @current_feed_order.each do |feeditem|
-      %li{ :data => {:id => feeditem.id} }
-        =feeditem.feed.feed_title
-  
-  %div#trash      
-    %span Drag Here to delete feed
-  
-  %form.playlistorder{:method=>"post", :action=>"/save-order"}
+  .cell.feed-scroll
+    %ul#user-feeds
+      - @current_feed_order.each do |feeditem|
+        %li{ :data => {:id => feeditem.id} }
+          =feeditem.feed.feed_title
     
-    %input#neworder{:type=>"hidden", :name => 'order[]', :value => '' }
-    %input#trashit{:type=>"hidden", :name => 'trash[]', :value => '' }
+    %div#trash      
+      %span Drag Here to delete feed
     
-    %button{:type=>"submit"} Update Playlist Order
+    %form.playlistorder{:method=>"post", :action=>"/save-order"}
+      
+      %input#neworder{:type=>"hidden", :name => 'order[]', :value => '' }
+      %input#trashit{:type=>"hidden", :name => 'trash[]', :value => '' }
+      
+      %button{:type=>"submit"} Update Playlist Order
      
 
 %script{:src => "/js/Sortable.min.js"}

@@ -1,29 +1,38 @@
 =haml :'partials/intro'
 
-.cell.feed
-  %h4 Login
+.cell.feed.column
+  .cell.fit.title
+    %h5.cat-title.cell Login
+          
+  .cell.feed-scroll   
   
-  %form.login{:method=>"post", :action=>"/login"}
-    .field
-      %input#email{:type=>"email", :required => true, :name => 'email', :placeholder => 'email'}
-    
-    .field
-      %input#password{:type=>"password", :required => true, :name => 'password',  :placeholder => 'password'}
-    
-    %button{:type=>"submit"} Sign In
+    %form.login{:method=>"post", :action=>"/login"}
+      .field
+        %input#email{:type=>"email", :required => true, :name => 'email', :placeholder => 'email'}
+      
+      .field
+        %input#password{:type=>"password", :required => true, :name => 'password',  :placeholder => 'password'}
+      
+      %button{:type=>"submit"} Sign In
   
   
-.cell.feed
-  %h4 Signup
+.cell.feed.column
+  .cell.fit.title
+    %h5.cat-title.cell Signup
+          
+  .cell.feed-scroll   
   
-  %form.signup{:method=>"post", :action=>"/signup"}
-    .field
-      %input#email{:type=>"email", :required => true, :name => 'users[email]', :placeholder =>  'email', :autocomplete => 'off'}    
-    
-    .field
-      %input#password{:type=>"password", :required => true, :name => 'password', :placeholder => 'password', :autocomplete => 'off'}
-
-    .field
-      %input#userurl{:type=>"text", :required => true, :name => 'users[userurl]', :placeholder => 'Your URL', :autocomplete => 'off'}
-    
-    %button{:type=>"submit"} Create
+    .errors
+      =@errors
+  
+    %form.signup{:method=>"post", :action=>"/signup"}
+      .field
+        %input#email{:type=>"email", :required => true, :name => 'users[email]', :placeholder =>  'email', :autocomplete => 'off'}    
+      
+      .field
+        %input#password{:type=>"password", :required => true, :name => 'password', :placeholder => 'password', :autocomplete => 'off'}
+  
+      .field
+        %input#userurl{:type=>"text", :required => true, :name => 'users[userurl]', :placeholder => 'Your URL', :autocomplete => 'off'}
+      
+      %button{:type=>"submit"} Create

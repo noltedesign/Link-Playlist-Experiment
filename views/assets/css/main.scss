@@ -42,16 +42,14 @@ a {
   
   .feed, .saved-items-list {
     //overflow:auto;
-    padding:1rem 1.75rem 3rem;
-    background-clip: border-box;
+    //padding:1rem 1.75rem 3rem;
     
-    .home &, .feed-page & {
-      @include displayflex;
-      padding:0;
-      border-left:solid 2px $gray13;
-      border-right:solid 2px $gray13;
-    }
-      
+    background-clip: border-box;
+    border-left:solid 2px $gray13;
+    border-right:solid 2px $gray13;
+    @include displayflex;
+    padding:0;
+            
     @include flex(0,0,20%);
     @media #{$xxlarg-max} { @include flex(0,0,16.666666%) };
     @media #{$xlarge-min} { @include flex(0,0,25%) };
@@ -275,5 +273,26 @@ a {
   a {
     padding:0;
     width:100%;
+  }
+  .login-item {
+    margin-top:2rem;
+  }
+}
+
+
+
+
+// Login 
+
+.errors {
+  padding-bottom:1rem;
+  span {
+    display:block;
+    padding:.25rem 1rem;
+    margin:2px 0;
+    font-size:.75rem;
+    background-color: rgba(255, 0, 0, 0.25);
+    text-align:center;
+    color:rgba(255, 255, 255, 0.9);
   }
 }
