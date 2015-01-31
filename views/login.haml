@@ -6,6 +6,9 @@
           
   .cell.feed-scroll   
   
+    .errors
+      =@errorslog
+  
     %form.login{:method=>"post", :action=>"/login"}
       .field
         %input#email{:type=>"email", :required => true, :name => 'email', :placeholder => 'email'}

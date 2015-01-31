@@ -189,7 +189,12 @@ post '/login' do
   
   @loggeduser = User.find_by_email(@userlogemail)
   
+  if !@loggeduser
+    @loggeduser.password_hash = ''
+  end
+  
   @passhash = BCrypt::Password.new(@loggeduser.password_hash)
+
   
   if @passhash == @userlogpass
     session[:loggedIN]=true
@@ -198,7 +203,10 @@ post '/login' do
     redirect '/'
   else
     session[:loggedIN]=nil
-    "Doh, wrong password"
+    @body_class = 'login'
+    @errorslog = '<span>Username or Password incorrect</span>'
+    
+    haml :login
   end
 end
 
