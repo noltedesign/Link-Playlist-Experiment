@@ -189,25 +189,32 @@ post '/login' do
   
   @loggeduser = User.find_by_email(@userlogemail)
   
-  if !@loggeduser
-    @loggeduser.password_hash = ''
-  end
+  if @loggeduser
+    @passhash = BCrypt::Password.new(@loggeduser.password_hash)
   
-  @passhash = BCrypt::Password.new(@loggeduser.password_hash)
-
-  
-  if @passhash == @userlogpass
-    session[:loggedIN]=true
-    session[:loggedID]=@loggeduser.id
+    if @passhash == @userlogpass
+      session[:loggedIN]=true
+      session[:loggedID]=@loggeduser.id
+      
+      redirect '/'
+    else
+      session[:loggedIN]=nil
+      @body_class = 'login login-fail'
+      @errorslog = '<span>Username or Password incorrect</span>'
+      
+      haml :login
+    end
     
-    redirect '/'
   else
+
     session[:loggedIN]=nil
-    @body_class = 'login'
+    @body_class = 'login login-fail'
     @errorslog = '<span>Username or Password incorrect</span>'
-    
+      
     haml :login
   end
+  
+
 end
 
 get '/logout' do
