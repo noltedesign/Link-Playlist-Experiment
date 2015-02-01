@@ -173,7 +173,12 @@ post '/signup' do
     haml :login
   else
     if @user.save
-      redirect '/#success'
+      
+      @loggeduser = User.find_by_email(@user.email)
+      session[:loggedIN]=true
+      session[:loggedID]=@loggeduser.id
+      
+      redirect '/preferences#success'
     else
       redirect '/#fail'
     end
@@ -196,7 +201,7 @@ post '/login' do
       session[:loggedIN]=true
       session[:loggedID]=@loggeduser.id
       
-      redirect '/'
+      redirect '/'+@loggeduser.userurl
     else
       session[:loggedIN]=nil
       @body_class = 'login login-fail'
@@ -421,7 +426,7 @@ end
 
 #User Feed
 get '/:name' do |n|
-  @body_class = 'feed-page user-' + n
+  @body_class = 'user-feed feed-page user-' + n
   @userfeed = User.where(userurl: n).first
 
   haml :userfeed

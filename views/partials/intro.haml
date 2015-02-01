@@ -12,7 +12,7 @@
     
       - if loggedin?
         %li 
-          %a{:title => 'Add Feed', :href => current_user.userurl } Your Playlist
+          %a.category-link.user-link{:title => 'Add Feed', :href => current_user.userurl } Your Playlist
           
       %li
         %a.category-link.main-link{:title => 'Home Feed', :href => '/' } Home Feed
