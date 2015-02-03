@@ -4,14 +4,15 @@
   .cell.feed.column
     .cell.fit.title
       %h5
-        -if feedin.feed.feed_type == "pinterest"
-          %img{:src => "/img/pinterest.svg", :alt => "pinterest", :class => "pinterest-logo"} 
-        -if feedin.feed.feed_type == "dribbble"
-          %img{:src => "/img/dribbble.svg", :alt => "pinterest", :class => "dribbble-logo"} 
-        =feedin.feed.feed_title
-        %span
-          (
-          =feedin.feed.feed_items.count
-          )
+        %a{:title => feedin.feed.feed_title, :href => feedin.feed.feed_link, :class => 'feed-link'}
+          -if feedin.feed.feed_type == "pinterest"
+            %img{:src => "/img/pinterest.svg", :alt => "pinterest", :class => "pinterest-logo"} 
+          -if feedin.feed.feed_type == "dribbble"
+            %img{:src => "/img/dribbble.svg", :alt => "pinterest", :class => "dribbble-logo"} 
+          =feedin.feed.feed_title
+          %span
+            (
+            =feedin.feed.feed_items.count
+            )
     .cell.feed-scroll  
       =haml :'partials/feed', :locals => {:feedin => feedin.feed}

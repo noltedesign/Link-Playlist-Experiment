@@ -1,10 +1,19 @@
 %ul      
   -feedin.feed_items.order(published_on: :desc).limit(80).each do |entry|
     %li{ :class => feedin.feed_type }
-      - if loggedin?
-        %span.save-item{ :data => {:id => entry.id} } save
-      %a{:title => remove_html_tags( entry.summary ), :href => entry.item_url, :target => 'blank', :class => 'tooltip'}
+      %a{:href => entry.item_url, :target => 'blank'}
         -if feedin.pinterest? or feedin.dribbble?
           =Sanitize.fragment(entry.summary, :elements => ['img', 'p'], :attributes => {'img' => ['src', 'title'] })
         -else
           =entry.title
+            
+      .item-meta
+        %span.tooltip{:title => remove_html_tags( entry.summary )}
+          Info
+        
+        %span.share-item
+          Share
+          
+        - if loggedin?
+          %span.save-item{ :data => {:id => entry.id} } 
+            Save Item

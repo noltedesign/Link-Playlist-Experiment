@@ -8,7 +8,7 @@ $(document).ready(function() {
   $('.tooltip').tooltipster({
     contentAsHTML: true,
     delay: 200,
-    iconDesktop: true
+    iconDesktop: false
   });
   
   // Save Feed
