@@ -21,7 +21,7 @@ header {
     }
   }
   a:link, a:visited {text-decoration:none; color:$gray40;}
-  a:active, a:hover {color:#f15a3b;}
+  a:active, a:hover {color:$red;}
   
   &:after {
     position: absolute;

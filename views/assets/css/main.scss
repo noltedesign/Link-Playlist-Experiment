@@ -23,9 +23,9 @@ a {
   
   @include scrollbar($gray15, $gray25);
   
-  a:link {text-decoration:none; color:#95bed8;}
+  a:link {text-decoration:none; color:$blue;}
   a:visited {color:$gray40;}
-  a:active, a:hover {color:#f15a3b;}
+  a:active, a:hover {color:$red;}
   
   .feed {
     background-attachment:scroll;
@@ -132,7 +132,7 @@ a {
             font-size:.3rem;
             color:$gray35;
             text-transform:uppercase;
-            margin-right:.5rem;
+            margin-left:.5rem;
             cursor:pointer;
             line-height:.8;
             &.tooltip {
@@ -203,7 +203,7 @@ a {
     }
     
     a:visited {color:$gray20;}
-    a:active, a:hover {color:#f15a3b;}
+    a:active, a:hover {color:$red;}
     
     .save-item {display:none;}
     .show-saved & {
