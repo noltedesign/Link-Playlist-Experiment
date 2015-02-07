@@ -285,9 +285,12 @@ a {
 }
 
 // Menu 
-.menu {
-  a {
+#content .feed ul.menu {
+  li {
     padding:0;
+  }
+  a {
+    padding:8px 0;
     width:100%;
   }
   .login-item {

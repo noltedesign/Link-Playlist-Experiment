@@ -276,10 +276,9 @@ end
 
 #Add Feed
 post '/add-feed' do
-  
+
   @url = Feed.new(params[:urls])
-  @user = params[:user_id]
-  
+  @user = params[:user_id]  
   if @url.feed_type == 'pinterest'
     @url.link = "http://pinterest.com/#{@url.link}/feed.rss"
   end
@@ -297,7 +296,7 @@ post '/add-feed' do
     @newlink['feed_id'] = @feedexists.id
     @newlink['user_id'] = @user
     @newlink.save
-    redirect '/preferences#nope'
+    redirect '/preferences#saved'
   
   else
     @feed_top = Feedjira::Feed.fetch_and_parse @url.link
@@ -322,15 +321,14 @@ post '/add-feed' do
       
       @entry.save
     end
-  
-    if @url.save
-      redirect '/preferences#saved'
-    else
-      'Oops, something went wrong'
-    end
-
   end
   
+  if @url.save
+    redirect '/preferences#saved'
+  else
+    'Oops, something went wrong'
+  end
+
 end
 
 
@@ -450,6 +448,3 @@ delete '/item/:id' do
   @togo = SavedItem.find_by_id(params[:id])
   @togo.destroy
 end
-
-
-

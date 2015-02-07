@@ -1,7 +1,7 @@
 %ul      
   -feedin.feed_items.order(published_on: :desc).limit(80).each do |entry|
     %li{ :class => feedin.feed_type }
-      %a{:href => entry.item_url, :target => 'blank'}
+      %a.item-link{:href => entry.item_url, :target => 'blank'}
         -if feedin.pinterest? or feedin.dribbble?
           =Sanitize.fragment(entry.summary, :elements => ['img', 'p'], :attributes => {'img' => ['src', 'title'] })
         -else
@@ -11,8 +11,9 @@
         %span.tooltip{:title => remove_html_tags( entry.summary )}
           Info
         
-        %span.share-item
-          Share
+        /
+          %span.share-item
+            Share
           
         - if loggedin?
           %span.save-item{ :data => {:id => entry.id} } 

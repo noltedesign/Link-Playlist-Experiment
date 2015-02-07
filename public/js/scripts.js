@@ -53,4 +53,27 @@ $(document).ready(function() {
       });
     });
   });
+  
+  // Share
+  $('.share-item').click(function(e){
+    $('body').addClass('modal share-modal');
+      
+    $('.modal-body').remove();
+    $('.modal-container').append("<div class='modal-body'></div>");
+  
+    var itemlink = $(this).parent().siblings( ".item-link" ).attr("href");
+    
+    var twitter = "<a href='https://twitter.com/share' class='twitter-share-button' data-url='" + itemlink + "' data-text='' data-via='FeedZombie' data-size='large' data-count='none'>Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>";
+    
+    $('.modal-body').append(twitter);
+  });
+  
+  $('.modal-overlay, .modal-overlay .close').click(function(e){
+    if (e.target == this) {
+      $('body').removeClass('modal share-modal');
+      $('.modal-body').remove();
+    };
+  });
+  
+  
 });
