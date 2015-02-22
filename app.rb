@@ -242,6 +242,32 @@ get '/preferences' do
 end
 
 
+#Update password
+post '/change-pass' do
+  
+  @newpass1 = params[:password1]
+  @newpass2 = params[:password2]
+  
+  if @newpass1 = @newpass2
+    
+    if loggedin?
+    
+      @user = current_user
+      @user.password_hash = BCrypt::Password.create(params[:password2])
+      @user.save  
+    
+      @newpasserror = '<span class="success">Password updated!</span>'
+      @current_feed_order = current_user.user_feeds
+      haml :preferences
+    else
+      redirect '/login'
+    end
+  else
+    @newpasserror = '<span>Passwords do not match.</span>'
+    haml :preferences
+  end
+
+end
 
 #Update Feed Order
 post '/save-order' do

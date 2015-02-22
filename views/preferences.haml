@@ -7,6 +7,22 @@
       =current_user.email
           
   .cell.feed-scroll   
+    
+    .errors
+      =@newpasserror
+    
+    %form.change_password_form{:method=>"post", :action=>"/change-pass"}
+      %label Update Password
+      .field
+        %input#password{:type=>"password", :required => true, :name => 'password1', :placeholder => 'new password', :autocomplete => 'off'}
+      .field
+        %input#password{:type=>"password", :required => true, :name => 'password2', :placeholder => 'repeat new password', :autocomplete => 'off'}
+      
+      %button{:type=>"submit"} Update Password
+      
+      
+      
+    
     %a{:title => 'log out', :href => '/logout'} Logout
   
     

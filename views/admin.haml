@@ -1,76 +1,80 @@
 %script{:src => "/js/Sortable.min.js"}
 
-.cell.feed
-  %h4 Add Site feeds
+.cell.feed.column
+  .cell.fit.title
+    %h5.cat-title.cell Add Site feeds
   
-  %form.addfeed_form{:method=>"post", :action=>"/add-global"}
-    %label Add Sitewide Feed
-    %input#addfeed{:type=>"text", :required => true, :name => 'urls[link]', :placeholder => 'RSS URL'}
+  .cell.feed-scroll
+    %form.addfeed_form{:method=>"post", :action=>"/add-global"}
+      %label Add Sitewide Feed
+      %input#addfeed{:type=>"text", :required => true, :name => 'urls[link]', :placeholder => 'RSS URL'}
+    
+      %br
+      %br
+      %br
+    
+      %ul.checkbox
+        -FeedCategory.all.each do |cat| 
+          %li
+            %input.checkbox{:type=>"checkbox", :name => 'feed_categorization[feed_category_id][]', :value => cat.id, :id => cat.category_name }
+            %label{:for => cat.category_name }
+              =cat.category_name
+      
+      %br
+      
+      %input.feedtype{:type=>"hidden", :name => 'urls[feed_type]', :value => 'global' }
+      
+      %button{:type=>"submit"} +
   
-    %br
-    %br
-    %br
-  
-    %ul.checkbox
-      -FeedCategory.all.each do |cat| 
-        %li
-          %input.checkbox{:type=>"checkbox", :name => 'feed_categorization[feed_category_id][]', :value => cat.id, :id => cat.category_name }
-          %label{:for => cat.category_name }
-            =cat.category_name
-    
-    %br
-    
-    %input.feedtype{:type=>"hidden", :name => 'urls[feed_type]', :value => 'global' }
-    
-    %button{:type=>"submit"} +
-
-    %br
-    %br
-    %br
-    
-  %form.addcategory_form{:method=>"post", :action=>"/add-feed-category"}
-    %label Add Category
-    %input#addcat{:type=>"text", :required => true, :name => 'category_name', :placeholder => 'Category Name', :class=>"square"}
-    
-    %button{:type=>"submit", :class=>"square"} +
+      %br
+      %br
+      %br
+      
+    %form.addcategory_form{:method=>"post", :action=>"/add-feed-category"}
+      %label Add Category
+      %input#addcat{:type=>"text", :required => true, :name => 'category_name', :placeholder => 'Category Name', :class=>"square"}
+      
+      %button{:type=>"submit", :class=>"square"} +
     
     
 -FeedCategory.all.each do |cat|
-  .cell.feed
-    %h5.cat-title
-      =cat.category_name
+  .cell.feed.column
+    .cell.fit.title
+      %h5.cat-title.cell
+        =cat.category_name
 
-    %ul.global-feeds{:id => "feed-cat-#{cat.id}"}
-      - cat.feed_categorizations.order(category_order: :asc).each do |feed_categorization|
-        %li{ :data => {:id => feed_categorization.id} }      
-          =feed_categorization.feed.feed_title
-    
-    %form.admin-order{:method=>"post", :action=>"/save-admin-order", :class => "admin-order-#{cat.id}"}
-      %input.neworder{:type=>"hidden", :name => 'order[]', :value => '', :id=> "neworder-#{cat.id}"}
-      %button{:type=>"submit"} Update Playlist Order
-       
-    :javascript
+    .cell.feed-scroll
+      %ul.global-feeds{:id => "feed-cat-#{cat.id}"}
+        - cat.feed_categorizations.order(category_order: :asc).each do |feed_categorization|
+          %li{ :data => {:id => feed_categorization.id} }      
+            =feed_categorization.feed.feed_title
       
-      var form_id = ".admin-order-#{cat.id}"
-      
-      var el = document.getElementById('feed-cat-#{cat.id}');
-      new Sortable(el, { group: 'orderit' });
-
-      $(form_id).submit( function() {
-
-        var feedorder = [];
+      %form.admin-order{:method=>"post", :action=>"/save-admin-order", :class => "admin-order-#{cat.id}"}
+        %input.neworder{:type=>"hidden", :name => 'order[]', :value => '', :id=> "neworder-#{cat.id}"}
+        %button{:type=>"submit"} Update Playlist Order
+         
+      :javascript
         
-        $(this).siblings('.global-feeds').children('li').each(function( index ) {
-          feedorder.push( $(this).data( 'id' ) );
+        var form_id = ".admin-order-#{cat.id}"
+        
+        var el = document.getElementById('feed-cat-#{cat.id}');
+        new Sortable(el, { group: 'orderit' });
+  
+        $(form_id).submit( function() {
+  
+          var feedorder = [];
+          
+          $(this).siblings('.global-feeds').children('li').each(function( index ) {
+            feedorder.push( $(this).data( 'id' ) );
+          });
+          
+          $(this).children('.neworder').val( feedorder );
+  
+          return true
+          
+          
+          
         });
-        
-        $(this).children('.neworder').val( feedorder );
-
-        return true
-        
-        
-        
-      });
 
        
        
