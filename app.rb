@@ -3,6 +3,7 @@ require 'bcrypt'
 require 'compass'
 require 'feedjira'
 require 'haml'
+require 'pony'
 require 'sanitize'
 require 'sass'
 require 'sinatra'
@@ -228,6 +229,13 @@ get '/logout' do
 end
 
 
+#Reset
+post '/forgot' do
+  @emailreminder = params[:email]
+  Pony.mail(:to => @emailreminder, :from => 'me@example.com', :subject => 'hi', :body => 'Hello there.')
+  redirect '/login'
+end
+
 
 #Preferences
 get '/preferences' do
@@ -337,15 +345,20 @@ post '/add-feed' do
     @newlink.save
     
     @feed_top.entries.first(80).each do |entry|
-      @entry = FeedItem.new
-      @entry.feed = @url
-      @entry['title'] = entry.title
-      @entry['summary'] = entry.summary
-      @entry['item_url'] = entry.url
-      @entry['published_on'] = entry.published
-      @entry['guid'] = entry.id
+      begin
+        @entry = FeedItem.new
+        @entry.feed = @url
+        @entry['title'] = entry.title
+        @entry['summary'] = entry.summary
+        @entry['item_url'] = entry.url
+        @entry['published_on'] = entry.published
+        @entry['guid'] = entry.id
+        
+        @entry.save
+      rescue Exception => e
+        puts "Error: #{e}"
+      end
       
-      @entry.save
     end
   end
   
@@ -396,16 +409,20 @@ post '/add-global' do
   end
   
   @feed_top.entries.first(80).each do |entry|
-    
-    @entry = FeedItem.new
-    @entry.feed = @url
-    @entry['title'] = entry.title
-    @entry['summary'] = entry.summary
-    @entry['item_url'] = entry.url
-    @entry['published_on'] = entry.published
-    @entry['guid'] = entry.id
-    
-    @entry.save
+    begin    
+      @entry = FeedItem.new
+      @entry.feed = @url
+      @entry['title'] = entry.title
+      @entry['summary'] = entry.summary
+      @entry['item_url'] = entry.url
+      @entry['published_on'] = entry.published
+      @entry['guid'] = entry.id
+      
+      @entry.save
+
+    rescue Exception => e
+      puts "Error: #{e}"
+    end
     
   end
 

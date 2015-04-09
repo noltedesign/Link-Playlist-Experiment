@@ -18,6 +18,14 @@
       
       %button{:type=>"submit"} Sign In
   
+    %form.forgot{:method=>"post", :action=>"/forgot"}
+      %label Forgot your password?
+      
+      .field
+        %input.email{:type=>"email", :required => true, :name => 'email', :placeholder => 'email'}
+      
+      %button{:type=>"submit"} Submit
+      
   
 .cell.feed.column
   .cell.fit.title
