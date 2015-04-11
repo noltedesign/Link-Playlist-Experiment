@@ -45,8 +45,6 @@ GEM
     nokogumbo (1.1.12)
       nokogiri
     pg (0.17.1)
-    pony (1.11)
-      mail (>= 2.0)
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
@@ -77,8 +75,8 @@ DEPENDENCIES
   compass
   feedjira
   haml
+  mail
   pg
-  pony
   sanitize
   sass
   sinatra
