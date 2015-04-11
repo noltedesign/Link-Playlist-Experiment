@@ -3,7 +3,7 @@ require 'bcrypt'
 require 'compass'
 require 'feedjira'
 require 'haml'
-require 'pony'
+require 'mail'
 require 'sanitize'
 require 'sass'
 require 'sinatra'
@@ -72,6 +72,13 @@ end
 
 
 enable :sessions
+
+
+# Mail defaults
+Mail.defaults do
+  delivery_method :test
+end
+Mail::TestMailer.deliveries
 
 
 
@@ -231,8 +238,18 @@ end
 
 #Reset
 post '/forgot' do
-  @emailreminder = params[:email]
-  Pony.mail(:to => @emailreminder, :from => 'me@example.com', :subject => 'hi', :body => 'Hello there.')
+  @emailreminder = params[:emailtwo]
+  
+  mail = Mail.new do
+    from    'me@test.com'
+    to      @emailreminder
+    subject 'This is a test email'
+    body    'test body'
+  end
+
+  mail.to_s
+  
+  
   redirect '/login'
 end
 
