@@ -1,4 +1,4 @@
-class FeedCategorization < ActiveRecord::Migration
+class CreateFeedCategorization < ActiveRecord::Migration
   def up
     create_table :feed_categorization do |t|
       t.string :feed_id
