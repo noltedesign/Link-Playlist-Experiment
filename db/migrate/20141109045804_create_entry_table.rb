@@ -3,6 +3,7 @@ class CreateEntryTable < ActiveRecord::Migration
     create_table :feed_items do |t|
       t.string :url_id
       t.string :name
+      t.text :title
       t.string :summary
       t.string :url
       t.string :published_on
