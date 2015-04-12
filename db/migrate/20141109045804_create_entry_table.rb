@@ -5,6 +5,7 @@ class CreateEntryTable < ActiveRecord::Migration
       t.string :name
       t.text :title
       t.string :summary
+      t.text :item_url
       t.string :url
       t.string :published_on
       t.string :guid
